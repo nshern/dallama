@@ -1,8 +1,9 @@
-import requests
-import os
 import json
-from langdetect import detect
+import os
 import time
+
+import requests
+from langdetect import detect
 
 
 def detect_language(text):
