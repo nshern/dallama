@@ -30,6 +30,7 @@ K -- Query --> AK[Result]
 L -- Query --> AL[Result]
 M -- Query --> AM[Result]
 
+subgraph Evaluation Chain
 AE -- Evaluate--> DN[Language detection]
 AF -- Evaluate--> DP[Language detection]
 AG -- Evaluate--> DQ[Language detection]
@@ -59,6 +60,7 @@ AAF -- Evaluate --> BF[Language Tool API]
 AAG -- Evaluate --> BG[Language Tool API]
 AAH -- Evaluate --> BH[Language Tool API]
 AAI -- Evaluate --> BI[Language Tool API]
+end
 
 BA -- Score --> CA[Leaderboard]
 BB -- Score --> CA[Leaderboard]
