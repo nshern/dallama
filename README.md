@@ -1,7 +1,7 @@
 # LLM Benchmarking for Danish via Ollama
 
 ```mermaid
-flowchart LR
+flowchart TD
 ollama --> mistral
 ollama --> llama2
 ollama --> vicuna
