@@ -1,7 +1,9 @@
 # LLM Benchmarking for Danish via Ollama
 
 # Description
-This repository aims to automate and publish benchmarking tests for off-the-shelf variations of common Free and Open Source Software (FOSS) Large Language Models (LLMs), available through Ollama. The goal is to identify a model that matches or surpasses GPT-4's proficiency in Danish communication.
+This repository aims to automate and publish benchmarking tests for off-the-shelf variations of common Free and Open Source Software (FOSS) Large Language Models (LLMs), available through Ollama.
+
+**The goal is to identify a model that matches or surpasses GPT-4's proficiency in Danish communication.**
 
 This is done in the following way:
 ```mermaid
