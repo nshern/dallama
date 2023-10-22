@@ -21,6 +21,7 @@ B[Vicuna:13b] --Create variation via modelfile-->K[Vicuna:13b variation 3]
 C[Vicuna:33b] --Create variation via modelfile-->L[Vicuna:33b variation 3]
 D[Vicuna:70b] --Create variation via modelfile-->M[Vicuna:70b variation 3]
 
+end
 E -- Query --> AE[Result]
 F -- Query --> AF[Result]
 G -- Query --> AG[Result]
@@ -30,7 +31,6 @@ J -- Query --> AJ[Result]
 K -- Query --> AK[Result]
 L -- Query --> AL[Result]
 M -- Query --> AM[Result]
-end
 
 subgraph Evaluation Chain
 AE -- Evaluate--> DN[Language detection]
