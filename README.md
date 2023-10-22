@@ -6,6 +6,7 @@ This repository aims to automate and publish benchmarking tests for off-the-shel
 This is done in the following way:
 ```mermaid
 flowchart LR
+subgraph Model Creation
 A[Ollama] --Pull--> B[Vicuna:13b]
 A[Ollama] --Pull--> C[Vicuna:33b]
 A[Ollama] --Pull--> D[Vicuna:70b]
@@ -29,6 +30,7 @@ J -- Query --> AJ[Result]
 K -- Query --> AK[Result]
 L -- Query --> AL[Result]
 M -- Query --> AM[Result]
+end
 
 subgraph Evaluation Chain
 AE -- Evaluate--> DN[Language detection]
@@ -62,6 +64,7 @@ AAH -- Evaluate --> BH[Language Tool API]
 AAI -- Evaluate --> BI[Language Tool API]
 end
 
+subgraph Results
 BA -- Score --> CA[Leaderboard]
 BB -- Score --> CA[Leaderboard]
 BC -- Score --> CA[Leaderboard]
@@ -71,6 +74,7 @@ BF -- Score --> CA[Leaderboard]
 BG -- Score --> CA[Leaderboard]
 BH -- Score --> CA[Leaderboard]
 BI -- Score --> CA[Leaderboard]
+end
 
 
 ```
