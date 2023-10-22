@@ -1,9 +1,7 @@
 # LLM Benchmarking for Danish via Ollama
 
 # Description
-This repository aims to automate and publish benchmarking tests for off-the-shelf variations of common Free and Open Source Software (FOSS) Large Language Models (LLMs), available through Ollama.
-
-**The goal is to identify a model that matches or surpasses GPT-4's proficiency in Danish communication.**
+This repository aims to automate and publish benchmarking tests for off-the-shelf variations of common Free and Open Source Software (FOSS) Large Language Models (LLMs), available through Ollama. The goal is to identify a model that matches or surpasses GPT-4's proficiency in Danish communication.
 
 This is done in the following way:
 ```mermaid
@@ -22,15 +20,25 @@ B[Vicuna:13b] --Create variation via modelfile-->K[Vicuna:13b variation 3]
 C[Vicuna:33b] --Create variation via modelfile-->L[Vicuna:33b variation 3]
 D[Vicuna:70b] --Create variation via modelfile-->M[Vicuna:70b variation 3]
 
-E -- Evaluate--> N[Language detection]
-F -- Evaluate--> P[Language detection]
-G -- Evaluate--> Q[Language detection]
-H -- Evaluate--> R[Language detection]
-I -- Evaluate--> S[Language detection]
-J -- Evaluate--> T[Language detection]
-K -- Evaluate--> U[Language detection]
-L -- Evaluate--> V[Language detection]
-M -- Evaluate--> W[Language detection]
+E -- Query --> AE[Result]
+F -- Query --> AF[Result]
+G -- Query --> AG[Result]
+H -- Query --> AH[Result]
+I -- Query --> AI[Result]
+J -- Query --> AJ[Result]
+K -- Query --> AK[Result]
+L -- Query --> AL[Result]
+M -- Query --> AM[Result]
+
+AE -- Evaluate--> N[Language detection]
+AF -- Evaluate--> P[Language detection]
+AG -- Evaluate--> Q[Language detection]
+AH -- Evaluate--> R[Language detection]
+AI -- Evaluate--> S[Language detection]
+AJ -- Evaluate--> T[Language detection]
+AK -- Evaluate--> U[Language detection]
+AL -- Evaluate--> V[Language detection]
+AM -- Evaluate--> W[Language detection]
 
 N -- Evaluate --> AA[Bing Proof/Spell checker]
 P -- Evaluate --> AB[Bing Proof/Spell checker]
