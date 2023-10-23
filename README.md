@@ -100,5 +100,4 @@ The process can be run *ad infinitum* to increase result confidence.
 
 ## Requirements
 - GPU in order to run larger models such as (33b, 40b, 70b, 180b) 
-- Harddisk space ()
-
+- Storage
