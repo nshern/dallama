@@ -1,7 +1,3 @@
-# LLM Benchmarking for Danish via Ollama
-
-# Problem that is trying to be solved
-
 # Description
 This repository poses a design for a framework for automating and publishing benchmarking tests for off-the-shelf variations of common Free and Open Source Software (FOSS) Large Language Models (LLMs), available through [Ollama](https://ollama.ai/), specifically with the **goal of identifiying model(s) that can match or surpass GPT-4's proficiency in Danish communication** (should these exist).
 
@@ -87,9 +83,9 @@ end
 ```
 
 The **Model creation** step can be extended *vertically*, as additional variations can be added parameters for variations include:
-- Base model (e.g. falcon:40b)
-- Variations (e.g. falcon:40b-text-q5_0, 40b-instruct-q4_0 etc.)
-- Modelfile parameters (e.g. temperature, num_ctx, num_gpu etc.)
+- Base model (e.g. *falcon:40b*)
+- Variations (e.g. *falcon:40b-text-q5_0*, *40b-instruct-q4_0 etc.*)
+- Modelfile parameters (e.g. *temperature*, *num_ctx*, *num_gpu* etc.)
 - Pre-prompt
 - RAG
 - Fine-tuning
