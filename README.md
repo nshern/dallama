@@ -87,24 +87,22 @@ end
 ```
 
 The **Model creation** step can be extended *vertically*, as additional variations can be added parameters for variations include:
-- Base model
-- Variations (Tags)
-- Modelfile parameters
+- Base model (e.g. falcon:40b)
+- Variations (e.g. falcon:40b-text-q5_0, 40b-instruct-q4_0 etc.)
+- Modelfile parameters (e.g. temperature, num_ctx, num_gpu etc.)
 - Pre-prompt
 - RAG
 - Fine-tuning
 
 The **Evaluation** step can be extended *horizontally*, adding additional evaluation steps. Possibilities include:
-- Language detection
-- Bing Proof
-- Bing spell-checker
-- Language tool
+- [Language detection](https://github.com/Mimino666/langdetect)
+- [Bing Spell Check API](https://www.microsoft.com/en-us/bing/apis/bing-spell-check-api)
+- [Language tool](https://languagetool.org/proofreading-api)
+- [Smodin](https://smodin.io/)
 
-The process can be run *ad infinitum* to increase result confidence
+The process can be run *ad infinitum* to increase result confidence.
 
-## To-dos
-- [ ] Experiment with [Modelfiles](https://github.com/jmorganca/ollama/blob/main/docs/modelfile.md)
-- [ ] Experiemnt with model variations
-- [ ] Experiment with larger models like llama2:70b (Need more GPU)
-- [ ] Implement RAG
-- [ ] Look into spell checker api like Smodin
+## Requirements
+- GPU in order to run larger models such as (33b, 40b, 70b, 180b) 
+- Harddisk space ()
+
