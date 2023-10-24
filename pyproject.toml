@@ -10,6 +10,7 @@ python = "^3.11"
 langchain = "0.0.259"
 language-tool-python = "^2.7.1"
 langdetect = "^1.0.9"
+randomname = "^0.2.1"
 
 
 [build-system]
