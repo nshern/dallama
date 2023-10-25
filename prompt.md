@@ -1,0 +1,31 @@
+Jeg vil have du svare på nedenstående quiz vedrørende dataetik. Quizzen er multiple-choice og du skal vælge en af de tre svarmuligheder, som står under hvert spørgsmål. Du er velkommen til at uddybe og begrunde dine svar.
+Du må under ingen omstændigheder svare på andre sprog end dansk.
+
+1. Er der forskel på GDPR og dataetik?
+    1. Nej, det er to begreber for det samme
+    2. Ja, det er forskellige ting 
+    3. Det kommer an på konteksten
+2. Hvad er dataetik?
+    1. Love og regler om datahåndtering
+    2. Etiske dilemmaer ved data
+    3. God praksis, når man indsamler, bruger og deler data
+3. Hvad er GDPR?
+    1. En dansk lov om databeskyttelse
+    2. En EU-forordning om databeskyttelse
+    3. En international aftale om databeskyttelse
+4. Betyder GDPR, at jeg har pligt til at udlevere oplysninger om mig selv til min arbejdsgiver?
+    1. Ja
+    2. Ja, hvis jeg arbejder med fortrolige oplysninger
+    3. Nej
+5. Hvilken myndighed fører tilsyn med finansielle virksomheders overholdelse af persondatareglerne i Danmark?
+    1. Datatilsynet
+    2. Finanstilsynet
+    3. Konkurrence- og Forbrugerstyrelsen
+6. Hvad sker der med mine data, når jeg forlader min arbejdsplads?
+    1. Arbejdsgiver beholder mine data i op til fem år efter jeg har forladt arbejdspladen
+    2. Alle mine data slettes automatisk, når jeg forlader arbejdspladsen
+    3. Jeg skal sørge for at tage mine data med mig til min nye arbejdsgiver
+7. Må din arbejdsgiver overvåge din mobiltelefon via en GPS?
+    1. Ja, hvis det er en firmatelefon
+    2. Nej, det er ikke lovligt
+    3. Kun hvis det er et sagligt formål

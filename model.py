@@ -11,7 +11,7 @@ class Model:
 
     def __init__(
         self,
-        base_model: str = "",
+        base_model: str,
         parameters: dict = {},
         template: str = "",
         system: str = "",
@@ -29,6 +29,8 @@ class Model:
     def create_modelfile(self, output_path):
         modelfile = ""
 
+        modelfile += f"FROM {self.base_model}\n"
+
         if self.parameters:
             for key, value in self.parameters.items():
                 modelfile += f"PARAMETER {key} {value}\n"
@@ -37,7 +39,7 @@ class Model:
             modelfile += f"TEMPLATE {self.template}\n"
 
         if self.system:
-            modelfile += f"SYSTEM {self.system}\n"
+            modelfile += f'SYSTEM """\n{self.system}\n"""'
 
         if self.adapter:
             modelfile += f"ADAPTER {self.adapter}\n"
@@ -45,7 +47,10 @@ class Model:
         if self.license:
             modelfile += f"LICENSE {self.license}\n"
 
-        self.modelfile_path = f"{output_path}/{self.model_name})"
+        self.modelfile_path = f"{output_path}/{self.model_name}"
+
+        with open(self.modelfile_path, "w") as f:
+            f.write(modelfile)
 
     def create_model_from_file(self):
         if self.modelfile_path:
