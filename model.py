@@ -66,6 +66,7 @@ class Model:
     def _write_to_overview(self):
         df = pd.read_csv("overview.csv")
         _dict = self.__dict__
+        print(_dict)
         df_dictionary = pd.DataFrame([_dict])
         df = pd.concat([df, df_dictionary], ignore_index=True)
 
