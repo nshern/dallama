@@ -17,18 +17,19 @@ if __name__ == "__main__":
     if "clean" in sys.argv:
         clean_modelfiles("./modelfiles")
         sys.exit
+
     else:
         with open("prompt.md", "r") as f:
             prompt = f.read()
 
         base_models = [
             "mistral:7b",
-            # "mistral:7b-text-fp16",
-            # "llama2:7b",
-            # "llama2:13b",
-            # "vicuna:7b",
-            # "vicuna:13b",
-            # "nous-hermes:13b",
+            "mistral:7b-text-fp16",
+            "llama2:7b",
+            "llama2:13b",
+            "vicuna:7b",
+            "vicuna:13b",
+            "nous-hermes:13b",
         ]
 
         for base_model in base_models:
