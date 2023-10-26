@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "ollamafarm"
+name = "llama_farm"
 version = "0.1.0"
 description = ""
 authors = ["Niklas Alexander Shern <nashern@protonmail.com>"]
