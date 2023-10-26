@@ -4,6 +4,15 @@ import os
 from model import Model
 
 
+def ensure_directory_exists():
+    directory = os.path.expanduser("~/.config/ollamafarm")
+    if not os.path.isdir(directory):
+        print(f"Creating config directory in {directory}...")
+        os.makedirs(directory)
+
+    return directory
+
+
 def clean(directory):
     for f in os.listdir(directory):
         os.remove(f"{directory}/{f}")
@@ -69,10 +78,12 @@ def parse_args():
 
 
 def main():
+    directory = ensure_directory_exists()
+
     args = parse_args()
 
     if "clean" in args:
-        clean("./modelfiles")
+        clean(f"{directory}/modelfiles")
 
     if "create" in args:
         create_model(args)
