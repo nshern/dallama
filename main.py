@@ -1,6 +1,5 @@
 import argparse
 import os
-import sys
 
 from model import Model
 
@@ -10,8 +9,39 @@ def clean(directory):
         os.remove(f"{directory}/{f}")
 
 
-def show_models():
+def view_models():
     pass
+
+
+def create_model(args):
+    if "base_model" in args:
+        base_model = args.base_model
+
+    if "parameters" in args:
+        parameters = args.parameters
+
+    if "template" in args:
+        template = args.template
+
+    if "system" in args:
+        system = args.system
+
+    if "adapter" in args:
+        adapter = args.adapter
+
+    if "license" in args:
+        license = args.license
+
+    model = Model(
+        base_model=base_model,  # type: ignore
+        parameters=parameters,  # type: ignore
+        template=template,  # type: ignore
+        system=system,  # type: ignore
+        adapter=adapter,  # type: ignore
+        license=license,  # type: ignore
+    )
+
+    model.create_model()
 
 
 def parse_args():
@@ -21,27 +51,17 @@ def parse_args():
     clean_parser = subparser.add_parser("clean", help="delete all modelfiles")
     clean_parser.set_defaults(clean=clean)
 
-    load_model = subparser.load_model("load", help="create new model")
-    load_model.add_argument("-b", "--base-model")
-    load_model.add_argument("-p", "")
+    create_parser = subparser.add_parser("create", help="create new model")
+    clean_parser.set_defaults(create=create_model)
+    create_parser.add_argument("-b", "--base-model", required=True)
+    create_parser.add_argument("-p", "--parameters")
+    create_parser.add_argument("-t", "--template")
+    create_parser.add_argument("-s", "--system")
+    create_parser.add_argument("-a", "--adapter")
+    create_parser.add_argument("-l", "--license")
 
-    # TODO: Write out all args
-
-    # NOTE: From ZEKA, look for inspiration:
-    # show_model = subparser.show_models
-
-    # new_parser.add_argument("-t", "--title")
-    # new_parser.add_argument("-a", "--tags", default="[]")
-    # new_parser.add_argument("-l", "--lang", default="en-US")
-    # new_parser.add_argument("-o", "--open")
-
-    # sync_parser = subparser.add_parser("sync", help="sync notes")
-    # sync_parser.set_defaults(sync=sync)
-
-    # clean_parser = subparser.add_parser("clean", help="clean notes")
-    # clean_parser.set_defaults(clean=clean)
-
-    # args = parser.parse_args()
+    view_parser = subparser.add_parser("view", help="view models")
+    view_parser.set_defaults(view=view_models)
 
     args = parser.parse_args()
 
@@ -50,28 +70,13 @@ def parse_args():
 
 def main():
     args = parse_args()
+
     if "clean" in args:
         clean("./modelfiles")
 
+    if "create" in args:
+        create_model(args)
+
 
 if __name__ == "__main__":
-    if "clean" in sys.argv:
-        clean_modelfiles("./modelfiles")
-        sys.exit
-    else:
-        with open("prompt.md", "r") as f:
-            prompt = f.read()
-
-        base_models = [
-            "mistral:7b",
-            # "mistral:7b-text-fp16",
-            # "llama2:7b",
-            # "llama2:13b",
-            # "vicuna:7b",
-            # "vicuna:13b",
-            # "nous-hermes:13b",
-        ]
-
-        for base_model in base_models:
-            model = Model(base_model=base_model, system=prompt)
-            model.create_model()
+    main()
