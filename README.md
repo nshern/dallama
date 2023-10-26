@@ -1,4 +1,6 @@
 ## Description
+Ollamafarm is a CLI built for for easily creating, managing and testing multiple ollama models.
+
 This repository poses a design for a framework for automating and publishing benchmarking tests for off-the-shelf variations of common Free and Open Source Software (FOSS) Large Language Models (LLMs), available through [Ollama](https://ollama.ai/), specifically with the **goal of identifiying model(s) that can match or surpass GPT-4's proficiency in Danish communication** (should these exist).
 
 The framework is not inherently designed to evaluate Danish per se, but could likewise be used to evaluate other languages, albeit this not being the focus of this repo.
