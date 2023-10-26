@@ -5,7 +5,7 @@ from model import Model
 
 
 def ensure_directory_exists():
-    directory = os.path.expanduser("~/.config/ollamafarm")
+    directory = os.path.expanduser("~/.config/llama_farm")
     if not os.path.isdir(directory):
         print(f"Creating config directory in {directory}...")
         os.makedirs(directory)
