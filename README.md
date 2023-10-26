@@ -1,5 +1,10 @@
+
+
+
 ## Description
 Dalama is a CLI built for for easily creating, managing and testing multiple ollama models.
+
+![Uploading DALL·E 2023-10-26 21.22.28 - Watercolor illustration of an adorable Holger Danske with rosy cheeks, holding a Danish flag aloft, as he rides a cartoon llama with a playful express.png…]()
 
 This repository poses a design for a framework for automating and publishing benchmarking tests for off-the-shelf variations of common Free and Open Source Software (FOSS) Large Language Models (LLMs), available through [Ollama](https://ollama.ai/), specifically with the **goal of identifiying model(s) that can match or surpass GPT-4's proficiency in Danish communication** (should these exist).
 
