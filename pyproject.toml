@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "llama_farm"
+name = "dalama"
 version = "0.1.0"
 description = ""
 authors = ["Niklas Alexander Shern <nashern@protonmail.com>"]
@@ -15,7 +15,7 @@ randomname = "^0.2.1"
 bpython = "^0.24"
 
 [tool.poetry.scripts]
-lf = 'llama_farm.__main__:main'
+dalama = 'dalama.__main__:main'
 
 [build-system]
 requires = ["poetry-core"]

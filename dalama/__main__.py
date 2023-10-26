@@ -17,7 +17,7 @@ def ensure_ollama_on_path():
 
 
 def _write_to_overview(model: Model):
-    file_path = "~/.config/llama_farm/overview.csv"
+    file_path = "~/.config/dalama/overview.csv"
     df = pd.read_csv(file_path)
     _dict = model.__dict__
     df_dictionary = pd.DataFrame([_dict])
@@ -27,7 +27,7 @@ def _write_to_overview(model: Model):
 
 
 def ensure_directory_exists():
-    directory = os.path.expanduser("~/.config/llama_farm")
+    directory = os.path.expanduser("~/.config/dalama")
 
     if not os.path.isdir(directory):
         print("Config director was not found.")
@@ -58,7 +58,7 @@ def create_prompt():
 
 
 def view_models():
-    df = pd.read_csv("~/.config/llama_farm/overview.csv")
+    df = pd.read_csv("~/.config/dalama/overview.csv")
     print(df.to_string(index=False))
 
 
@@ -104,7 +104,6 @@ def parse_args():
     clean_parser.set_defaults(clean=clean)
 
     create_parser = subparser.add_parser("create", help="create new model")
-    create_parser.set_defaults(create=create_model)
     create_parser.add_argument("-b", "--base-model", required=True)
     create_parser.add_argument("-p", "--parameters")
     create_parser.add_argument("-t", "--template")
@@ -114,6 +113,7 @@ def parse_args():
 
     view_parser = subparser.add_parser("view", help="view models")
     view_parser.set_defaults(view=view_models)
+    view_parser.add_argument("-n", "--names", action="store_true")
 
     args = parser.parse_args()
 
@@ -126,6 +126,7 @@ def main():
     directory = ensure_directory_exists()
 
     args = parse_args()
+    print(args)
 
     if "clean" in args:
         clean(f"{directory}/modelfiles")
@@ -134,7 +135,8 @@ def main():
         create_model(args)
 
     if "view" in args:
-        view_models()
+        if args.names:
+            view_models(filter="names")
 
 
 if __name__ == "__main__":
