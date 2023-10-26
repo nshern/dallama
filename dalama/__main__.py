@@ -30,7 +30,7 @@ def ensure_directory_exists():
     directory = os.path.expanduser("~/.config/dalama")
 
     if not os.path.isdir(directory):
-        print("Config director was not found.")
+        print("Config directory was not found.")
         print(f"Creating config directory in {directory}...")
         os.makedirs(directory)
 
@@ -53,13 +53,23 @@ def clean(directory):
         os.remove(f"{directory}/{f}")
 
 
-def create_prompt():
-    pass
+def attach_system_prompt(path):
+    with open(path) as f:
+        result = f.read()
+
+    return result
 
 
-def view_models():
+def view_models(filter=""):
     df = pd.read_csv("~/.config/dalama/overview.csv")
-    print(df.to_string(index=False))
+
+    if filter == "":
+        print(df.to_string(index=False))
+
+    if filter == "names":
+        # print("yo")
+        for i in df["model_name"]:
+            print(i)
 
 
 def create_model(args):
@@ -126,7 +136,6 @@ def main():
     directory = ensure_directory_exists()
 
     args = parse_args()
-    print(args)
 
     if "clean" in args:
         clean(f"{directory}/modelfiles")
@@ -135,8 +144,11 @@ def main():
         create_model(args)
 
     if "view" in args:
-        if args.names:
+        if args.names is True:
             view_models(filter="names")
+
+        elif args.names is False:
+            view_models()
 
 
 if __name__ == "__main__":
