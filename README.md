@@ -1,8 +1,6 @@
-```html
 <p align="center">
   <img src="image.png" alt="Dalama CLI">
 </p>
-```
 ## Description
 Dalama is a CLI built for for easily creating, managing and testing multiple ollama models.
 
