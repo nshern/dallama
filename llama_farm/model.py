@@ -1,6 +1,6 @@
 import subprocess
 
-import pandas as pd
+# import pandas as pd
 import randomname
 
 
@@ -63,19 +63,9 @@ class Model:
         else:
             print(f"{self.model_name} has no associated Modelfile")
 
-    def _write_to_overview(self):
-        df = pd.read_csv("overview.csv")
-        _dict = self.__dict__
-        print(_dict)
-        df_dictionary = pd.DataFrame([_dict])
-        df = pd.concat([df, df_dictionary], ignore_index=True)
-
-        df.to_csv("overview.csv")
-
     def create_model(self, output_path="./modelfiles"):
         self._create_modelfile(output_path)
         self._create_model_from_file()
-        self._write_to_overview()
 
     def run_model(self):
         command = f"ollama run {self.model_name}"

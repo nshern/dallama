@@ -1,14 +1,49 @@
 import argparse
+import logging
 import os
+import shutil
 
-from model import Model
+import pandas as pd
+
+from .model import Model
+
+logging.basicConfig(level=logging.INFO)
+
+
+def ensure_ollama_on_path():
+    """Check whether Ollama is on PATH and marked as executable."""
+    if shutil.which("ollama") is None:
+        raise FileNotFoundError("Ollama not found on system's PATH")
+
+
+def _write_to_overview(model: Model):
+    file_path = "~/.config/llama_farm/overview.csv"
+    df = pd.read_csv(file_path)
+    _dict = model.__dict__
+    df_dictionary = pd.DataFrame([_dict])
+    df = pd.concat([df, df_dictionary], ignore_index=True)
+
+    df.to_csv(file_path)
 
 
 def ensure_directory_exists():
     directory = os.path.expanduser("~/.config/llama_farm")
+
     if not os.path.isdir(directory):
+        print("Config director was not found.")
         print(f"Creating config directory in {directory}...")
         os.makedirs(directory)
+
+        if os.path.isdir(directory):
+            print("Successfully created config directory")
+
+        print("creating modelfile overview...")
+        file_name = "overview.csv"
+        file_path = os.path.join(directory, file_name)
+        with open(file_path, "w") as file:
+            file.write(
+                "model_name,model_path,base_model,parameters,template,system,adapter,license,modelfile_path"
+            )
 
     return directory
 
@@ -18,8 +53,13 @@ def clean(directory):
         os.remove(f"{directory}/{f}")
 
 
-def view_models():
+def create_prompt():
     pass
+
+
+def view_models():
+    df = pd.read_csv("~/.config/llama_farm/overview.csv")
+    print(df.to_string(index=False))
 
 
 def create_model(args):
@@ -50,7 +90,10 @@ def create_model(args):
         license=license,  # type: ignore
     )
 
+    print("Creating model..")
     model.create_model()
+
+    _write_to_overview(model)
 
 
 def parse_args():
@@ -61,7 +104,7 @@ def parse_args():
     clean_parser.set_defaults(clean=clean)
 
     create_parser = subparser.add_parser("create", help="create new model")
-    clean_parser.set_defaults(create=create_model)
+    create_parser.set_defaults(create=create_model)
     create_parser.add_argument("-b", "--base-model", required=True)
     create_parser.add_argument("-p", "--parameters")
     create_parser.add_argument("-t", "--template")
@@ -78,6 +121,8 @@ def parse_args():
 
 
 def main():
+    ensure_ollama_on_path()
+
     directory = ensure_directory_exists()
 
     args = parse_args()
@@ -85,8 +130,11 @@ def main():
     if "clean" in args:
         clean(f"{directory}/modelfiles")
 
-    if "create" in args:
+    if "base_model" in args:
         create_model(args)
+
+    if "view" in args:
+        view_models()
 
 
 if __name__ == "__main__":
