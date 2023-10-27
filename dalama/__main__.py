@@ -76,9 +76,6 @@ def create_model(args):
     if "base_model" in args:
         base_model = args.base_model
 
-    if "parameters" in args:
-        parameters = args.parameters
-
     if "template" in args:
         template = args.template
 
@@ -93,7 +90,6 @@ def create_model(args):
 
     model = Model(
         base_model=base_model,  # type: ignore
-        parameters=parameters,  # type: ignore
         template=template,  # type: ignore
         system=system,  # type: ignore
         adapter=adapter,  # type: ignore

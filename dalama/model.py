@@ -1,7 +1,7 @@
 import subprocess
+import uuid
 
-# import pandas as pd
-import randomname
+import pandas as pd
 
 
 class Model:
@@ -10,63 +10,42 @@ class Model:
     model objects
     """
 
+    def create_model(self):
+        model_filepath = f"./tmp/{self.id}"
+        command = f"ollama create {self.id} -f {model_filepath}"
+        subprocess.run(command, shell=True)
+
     def __init__(
         self,
         base_model: str,
-        parameters: dict = {},
-        template: str = "",
-        system: str = "",
-        adapter: str = "",
-        license: str = "",
+        prompt="",
+        temperature="",
     ):
+        self.id = str(uuid.uuid4())
         self.base_model = base_model
-        self.parameters = parameters
-        self.template = template
-        self.system = system
-        self.adapter = adapter
-        self.license = license
-        self.model_name = f"{self.base_model}_{randomname.get_name()}"
+        self.prompt = prompt
+        self.temperature = temperature
+        self.model_file = f"FROM {self.base_model}\n"
 
-    def _create_modelfile(self, output_path):
-        modelfile = ""
+        if self.prompt != "":
+            self.model_file += f'SYSTEM:"""\n{self.prompt}'
 
-        modelfile += f"FROM {self.base_model}\n"
+        if self.temperature != "":
+            self.model_file += f"PARAMETER {self.temperature}"
 
-        if self.parameters:
-            for key, value in self.parameters.items():
-                modelfile += f"PARAMETER {key} {value}\n"
+        self.create_model()
 
-        if self.template:
-            modelfile += f"TEMPLATE {self.template}\n"
+        overview = pd.read_csv("./overview.csv")
 
-        if self.system:
-            modelfile += f'SYSTEM """\n{self.system}\n"""'
+        _dict = {
+            "id": self.id,
+            "base_model": self.base_model,
+            "prompt": self.prompt,
+            "temperature": self.temperature,
+        }
 
-        if self.adapter:
-            modelfile += f"ADAPTER {self.adapter}\n"
+        df = pd.DataFrame(_dict)
 
-        if self.license:
-            modelfile += f"LICENSE {self.license}\n"
+        result = pd.concat([overview, df], axis=1)
 
-        self.modelfile_path = f"{output_path}/{self.model_name}"
-
-        with open(self.modelfile_path, "w") as f:
-            f.write(modelfile)
-
-    def _create_model_from_file(self):
-        if self.modelfile_path:
-            command = (
-                f"ollama create {self.model_name} -f {self.modelfile_path}"
-            )
-            subprocess.run(command, shell=True)
-            print("Model created")
-        else:
-            print(f"{self.model_name} has no associated Modelfile")
-
-    def create_model(self, output_path="./modelfiles"):
-        self._create_modelfile(output_path)
-        self._create_model_from_file()
-
-    def run_model(self):
-        command = f"ollama run {self.model_name}"
-        subprocess.run(command, shell=True)
+        result.to_csv("./overview.csv")
