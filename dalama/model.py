@@ -10,16 +10,15 @@ class Model:
     model objects
     """
 
-    def create_model(self):
-        model_filepath = f"./tmp/{self.id}"
+    def create_model(self, model_filepath):
         command = f"ollama create {self.id} -f {model_filepath}"
         subprocess.run(command, shell=True)
 
     def __init__(
         self,
         base_model: str,
-        prompt="",
-        temperature="",
+        prompt: str = "",
+        temperature: str = "1",
     ):
         self.id = str(uuid.uuid4())
         self.base_model = base_model
@@ -27,13 +26,20 @@ class Model:
         self.temperature = temperature
         self.model_file = f"FROM {self.base_model}\n"
 
-        if self.prompt != "":
-            self.model_file += f'SYSTEM:"""\n{self.prompt}'
+        if self.prompt is not None:
+            with open(f"./prompts/{self.prompt}") as f:
+                self.prompt = f.read()
+            self.model_file += f'SYSTEM:"""\n{self.prompt}\n"""\n'
 
-        if self.temperature != "":
-            self.model_file += f"PARAMETER {self.temperature}"
+        if self.temperature is not None:
+            self.model_file += f"PARAMETER temperature {self.temperature}"
 
-        self.create_model()
+        model_filepath = f"./tmp/{self.id}"
+
+        with open(model_filepath, "w") as f:
+            f.write(self.model_file)
+
+        self.create_model(model_filepath)
 
         overview = pd.read_csv("./overview.csv")
 
@@ -44,8 +50,10 @@ class Model:
             "temperature": self.temperature,
         }
 
-        df = pd.DataFrame(_dict)
+        df = pd.DataFrame([_dict])
 
-        result = pd.concat([overview, df], axis=1)
+        result = pd.concat([overview, df], axis=0)
 
-        result.to_csv("./overview.csv")
+        result.to_csv("./overview.csv", index=False)
+
+        print(f"Succesfully created model {self.id}")

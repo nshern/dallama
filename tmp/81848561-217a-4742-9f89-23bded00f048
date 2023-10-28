@@ -1,0 +1,5 @@
+FROM llama2:7b
+SYSTEM:"""
+test
+"""
+PARAMETER temperature 1

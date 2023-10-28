@@ -1,5 +1,5 @@
-FROM mistral:7b
-SYSTEM """
+FROM llama2:7b
+SYSTEM:"""
 Jeg vil have du svare på nedenstående quiz vedrørende dataetik. Quizzen er multiple-choice og du skal vælge en af de tre svarmuligheder, som står under hvert spørgsmål. Du er velkommen til at uddybe og begrunde dine svar.
 Du må under ingen omstændigheder svare på andre sprog end dansk.
 
@@ -33,3 +33,4 @@ Du må under ingen omstændigheder svare på andre sprog end dansk.
     3. Kun hvis det er et sagligt formål
 
 """
+PARAMETER temperature 0.5

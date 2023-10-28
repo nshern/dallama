@@ -3,8 +3,6 @@ import logging
 import os
 import shutil
 
-import pandas as pd
-
 from .model import Model
 
 logging.basicConfig(level=logging.INFO)
@@ -14,16 +12,6 @@ def ensure_ollama_on_path():
     """Check whether Ollama is on PATH and marked as executable."""
     if shutil.which("ollama") is None:
         raise FileNotFoundError("Ollama not found on system's PATH")
-
-
-def _write_to_overview(model: Model):
-    file_path = "~/.config/dalama/overview.csv"
-    df = pd.read_csv(file_path)
-    _dict = model.__dict__
-    df_dictionary = pd.DataFrame([_dict])
-    df = pd.concat([df, df_dictionary], ignore_index=True)
-
-    df.to_csv(file_path)
 
 
 def ensure_directory_exists():
@@ -48,78 +36,22 @@ def ensure_directory_exists():
     return directory
 
 
-def clean(directory):
-    for f in os.listdir(directory):
-        os.remove(f"{directory}/{f}")
-
-
-def attach_system_prompt(path):
-    with open(path) as f:
-        result = f.read()
-
-    return result
-
-
-def view_models(filter=""):
-    df = pd.read_csv("~/.config/dalama/overview.csv")
-
-    if filter == "":
-        print(df.to_string(index=False))
-
-    if filter == "names":
-        # print("yo")
-        for i in df["model_name"]:
-            print(i)
-
-
-def create_model(args):
-    if "base_model" in args:
-        base_model = args.base_model
-
-    if "template" in args:
-        template = args.template
-
-    if "system" in args:
-        system = args.system
-
-    if "adapter" in args:
-        adapter = args.adapter
-
-    if "license" in args:
-        license = args.license
-
-    model = Model(
-        base_model=base_model,  # type: ignore
-        template=template,  # type: ignore
-        system=system,  # type: ignore
-        adapter=adapter,  # type: ignore
-        license=license,  # type: ignore
+def create_model(args) -> None:
+    Model(
+        base_model=args.base_model,
+        prompt=getattr(args, "prompt", ""),
+        temperature=getattr(args, "temperature", ""),
     )
-
-    print("Creating model..")
-    model.create_model()
-
-    _write_to_overview(model)
 
 
 def parse_args():
     parser = argparse.ArgumentParser()
     subparser = parser.add_subparsers()
 
-    clean_parser = subparser.add_parser("clean", help="delete all modelfiles")
-    clean_parser.set_defaults(clean=clean)
-
     create_parser = subparser.add_parser("create", help="create new model")
     create_parser.add_argument("-b", "--base-model", required=True)
-    create_parser.add_argument("-p", "--parameters")
-    create_parser.add_argument("-t", "--template")
-    create_parser.add_argument("-s", "--system")
-    create_parser.add_argument("-a", "--adapter")
-    create_parser.add_argument("-l", "--license")
-
-    view_parser = subparser.add_parser("view", help="view models")
-    view_parser.set_defaults(view=view_models)
-    view_parser.add_argument("-n", "--names", action="store_true")
+    create_parser.add_argument("-p", "--prompt")
+    create_parser.add_argument("-t", "--temperature")
 
     args = parser.parse_args()
 
@@ -129,22 +61,12 @@ def parse_args():
 def main():
     ensure_ollama_on_path()
 
-    directory = ensure_directory_exists()
+    # directory = ensure_directory_exists()
 
     args = parse_args()
 
-    if "clean" in args:
-        clean(f"{directory}/modelfiles")
-
     if "base_model" in args:
         create_model(args)
-
-    if "view" in args:
-        if args.names is True:
-            view_models(filter="names")
-
-        elif args.names is False:
-            view_models()
 
 
 if __name__ == "__main__":
