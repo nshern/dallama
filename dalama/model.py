@@ -39,6 +39,7 @@ class Model:
         with open(model_filepath, "w") as f:
             f.write(self.model_file)
 
+        # TODO: Check if model already exists
         self.create_model(model_filepath)
 
         overview = pd.read_csv("./overview.csv")
