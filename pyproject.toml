@@ -24,3 +24,7 @@ dalama = 'dalama.__main__:main'
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
+# [tool.ruff]
+# # Enable the isort rules.
+# extend-select = ["I"]

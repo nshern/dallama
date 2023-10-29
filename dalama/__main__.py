@@ -44,6 +44,9 @@ def create_model(args) -> None:
     )
 
 
+# def run_benchmarking()
+
+
 def parse_args():
     parser = argparse.ArgumentParser()
     subparser = parser.add_subparsers()

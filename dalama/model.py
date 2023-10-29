@@ -20,6 +20,9 @@ class Model:
         prompt: str = "",
         temperature: str = "1",
     ):
+        # TODO: ID Should be based on parameters, so that we can check if it
+        # already exists
+
         self.id = str(uuid.uuid4())
         self.base_model = base_model
         self.prompt = prompt
