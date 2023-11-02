@@ -32,7 +32,7 @@ class Model:
         if self.prompt is not None:
             with open(f"./prompts/{self.prompt}") as f:
                 self.prompt = f.read()
-            self.model_file += f'SYSTEM:"""\n{self.prompt}\n"""\n'
+            self.model_file += f'SYSTEM """\n{self.prompt}\n"""\n'
 
         if self.temperature is not None:
             self.model_file += f"PARAMETER temperature {self.temperature}"
