@@ -17,6 +17,7 @@ bpython = "^0.24"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^7.4.3"
+bandit = "^1.7.5"
 
 [tool.poetry.scripts]
 dalama = 'dalama.__main__:main'

@@ -1,0 +1,4 @@
+curl -X POST http://localhost:11434/api/generate -d '{
+    "model": "0426317b-ed19-4076-b44a-9ab28cbfa489",
+    "prompt":"."
+  }'
