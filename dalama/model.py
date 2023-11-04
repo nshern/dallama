@@ -61,3 +61,6 @@ class Model:
         result.to_csv("./overview.csv", index=False)
 
         print(f"Succesfully created model {self.id}")
+
+
+# if __name__ == "__main__":

@@ -1,0 +1,36 @@
+import sqlite3
+
+db = sqlite3.connect("overview.db")
+cursor = db.cursor()
+
+# cursor.execute("""DROP TABLE IF EXISTS base_model""")
+# cursor.execute("""DROP TABLE IF EXISTS prompt""")
+# cursor.execute("""DROP TABLE IF EXISTS custom_model""")
+
+cursor.execute(
+    """CREATE TABLE IF NOT EXISTS base_model(
+                    id INTEGER PRIMARY KEY,
+                    Name TEXT unique
+            )"""
+)
+
+cursor.execute(
+    """CREATE TABLE IF NOT EXISTS prompt(
+                    id INTEGER PRIMARY KEY,
+                    text TEXT
+            )"""
+)
+
+cursor.execute(
+    """CREATE TABLE IF NOT EXISTS custom_model(
+                    id INTEGER PRIMARY KEY,
+                    Temperature TEXT,
+                    Modelfile TEXT,
+                    PromptId INTEGER,
+                    BaseModelId INTEGER,
+                    FOREIGN KEY(PromptId) REFERENCES prompt(id),
+                    FOREIGN KEY(BaseModelId) REFERENCES base_model(id)
+             )"""
+)
+
+db.commit()
