@@ -45,6 +45,7 @@ class Model:
         # TODO: Check if model already exists
         self.create_model(model_filepath)
 
+        # TODO: Change this to use sqlite instead of a csv
         overview = pd.read_csv("./overview.csv")
 
         _dict = {
