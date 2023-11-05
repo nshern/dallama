@@ -52,6 +52,3 @@ def run_models(id="0426317b-ed19-4076-b44a-9ab28cbfa489"):
     print(df)
 
     # df.loc[len(df)] = new_row
-
-
-db = sqlite3.connect("my_db.sqlite3")
