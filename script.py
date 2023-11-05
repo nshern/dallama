@@ -1,9 +1,10 @@
 import json
-import sqlite3
 import subprocess
+import uuid
 
 import pandas as pd
 import requests
+from tqdm import tqdm
 
 # This could be an argument
 # Check if model already exists
@@ -25,30 +26,47 @@ def create_models():
         subprocess.run(i, shell=True)
 
 
-def run_models(id="0426317b-ed19-4076-b44a-9ab28cbfa489"):
-    url = "http://localhost:11434/api/generate"
-    data = {"model": id, "prompt": "."}
+def _read_overview():
+    df = pd.read_csv("overview.csv")
+    return df
 
-    response = requests.post(url, data=json.dumps(data))
 
-    lines = response.text.splitlines()
+def run_models():
+    df = _read_overview()
+    results = []
 
-    text = []
+    ids = [i for i in df["id"]]
 
-    for i in lines:
-        r = json.loads(i)["response"]
-        text.append(r)
+    for id in tqdm(ids):
+        url = "http://localhost:11434/api/generate"
+        data = {"model": id, "prompt": "."}
 
-    result = "".join(text)
-    print(result)
+        response = requests.post(url, data=json.dumps(data))
 
-    new_row = {"id": id, "res": result}
-    new_row = pd.Series(new_row)
+        lines = response.text.splitlines()
 
-    df = pd.read_csv("result_overview.csv")
+        text = []
 
-    df = pd.concat([df, new_row], ignore_index=True)
+        for i in lines:
+            r = json.loads(i)["response"]
+            text.append(r)
 
-    print(df)
+        result = "".join(text)
+
+        results.append(result)
+
+    title = f"res_{uuid.uuid4()}"
+
+    df[title] = results
+
+    df.to_csv("overview.csv")
 
     # df.loc[len(df)] = new_row
+
+
+# create_models()
+run_models()
+run_models()
+run_models()
+run_models()
+run_models()
