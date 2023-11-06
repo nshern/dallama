@@ -2,6 +2,7 @@ import json
 import subprocess
 import time
 import uuid
+from collections import Counter
 
 import pandas as pd
 import requests
@@ -66,8 +67,6 @@ def run_models():
 
     df.to_csv("overview.csv", index=False)
 
-    # df.loc[len(df)] = new_row
-
 
 def analyze_results():
     df = _read_overview()
@@ -104,12 +103,46 @@ def analyze_results():
     # print(df)
 
 
-def evaluate_text():
-    pass
+# TODO: Work on this
+def evaluate_text(text):
+    url = "https://api.languagetoolplus.com/v2/check"
+    headers = {
+        "accept": "application/json",
+        "Content-Type": "application/x-www-form-urlencoded",
+    }
+    data = {
+        "text": f"{text}",
+        "language": "en-US",
+        "enabledOnly": "false",
+    }
+
+    response = requests.post(url, headers=headers, data=data)
+
+    matches = [i for i in response.json()["matches"]]
+
+    mistakes = []
+    if len(matches) > 0:
+        for i in matches:
+            mistakes.append(i["shortMessage"])
+
+        count_dict = dict(Counter(mistakes))
+        return count_dict
+
+    else:
+        return "None"
 
 
-# df = _read_overview()
-# for i in df["res_40178619-06c5-4212-9f5f-1d208f22db4c"]:
+evaluate_text("Helo darknes my old frend")
+
+
+df = _read_overview()
+mistakes = []
+for i in df["res_40178619-06c5-4212-9f5f-1d208f22db4c"]:
+    mistakes.append(evaluate_text(i))
+
+df["mistakes"] = mistakes
+
+print(df)
 
 
 # analyze_results()
