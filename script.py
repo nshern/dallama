@@ -104,47 +104,12 @@ def analyze_results():
     # print(df)
 
 
-def evaluate_text(file):
-    api_key = "35ef7ef31c7443aea671d7b390d7029b"
-    endpoint = "https://api.bing.microsoft.com/v7.0/SpellCheck"
-
-    with open(file, "r") as f:
-        example_text = f.read().splitlines()
-
-    for i in example_text:
-        if i == "":
-            continue
-
-        else:
-            data = {"text": i}
-
-            params = {"mkt": "da-DK", "mode": "proof"}
-
-            headers = {
-                "Content-Type": "application/x-www-form-urlencoded",
-                "Ocp-Apim-Subscription-Key": api_key,
-            }
-
-            while True:
-                response = requests.post(
-                    endpoint, headers=headers, params=params, data=data
-                )
-
-                if response.status_code != 429:
-                    break
-
-                print(
-                    "Rate limit exceeded. Waiting for 2 seconds before retrying.."
-                )
-                time.sleep(2)
-
-            json_response = response.json()
-            print(json.dumps(json_response, indent=4))
+def evaluate_text():
+    pass
 
 
-df = _read_overview()
-for i in df["res_40178619-06c5-4212-9f5f-1d208f22db4c"]:
-    evaluate_text(i)
+# df = _read_overview()
+# for i in df["res_40178619-06c5-4212-9f5f-1d208f22db4c"]:
 
 
 # analyze_results()
