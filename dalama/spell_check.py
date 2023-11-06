@@ -2,8 +2,8 @@ import json
 import os
 import time
 
+import pandas as pd
 import requests
-from langdetect import detect
 
 
 def detect_language(text):
@@ -63,4 +63,5 @@ if __name__ == "__main__":
     files = get_file_paths("./results")
     for file in files:
         evaluate_text(file)
+
     # print(detect_language("Hej mit navn er Kaj"))

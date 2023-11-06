@@ -1,5 +1,5 @@
-,id,base_model,prompt,temperature,res_c788b70d-950c-4ca2-950e-d237a5ff2d85
-0,c1fb654f-5216-4387-95c3-142c8942dd0c,llama2:7b,"Jeg vil have du svare på nedenstående quiz vedrørende dataetik. Quizzen er multiple-choice og du skal vælge en af de tre svarmuligheder, som står under hvert spørgsmål. Du er velkommen til at uddybe og begrunde dine svar.
+Unnamed: 0,id,base_model,prompt,temperature,res_40178619-06c5-4212-9f5f-1d208f22db4c,langs
+0,06a7f04d-d94e-461c-9ff1-b1be60a76f03,llama2:7b,"Jeg vil have du svare på nedenstående quiz vedrørende dataetik. Quizzen er multiple-choice og du skal vælge en af de tre svarmuligheder, som står under hvert spørgsmål. Du er velkommen til at uddybe og begrunde dine svar.
 Du må under ingen omstændigheder svare på andre sprog end dansk.
 
 1. Er der forskel på GDPR og dataetik?
@@ -30,23 +30,16 @@ Du må under ingen omstændigheder svare på andre sprog end dansk.
     1. Ja, hvis det er en firmatelefon
     2. Nej, det er ikke lovligt
     3. Kun hvis det er et sagligt formål
-",1.0,"Jeg vil gerne hjælp dig med at svare på denne quiz om dataetik og GDPR. Here are my answers:
+",1.0,"Thank you for participating in the quiz! Here are my answers:
 
-1. Er there a difference between GDPR and data ethics?
-Answer: 2. Yes, there is a difference between GDPR and data ethics. GDPR is a regulation related to the handling of personal data, while data ethics refers to the ethical considerations surrounding the collection, use, and protection of personal data.
-2. What is data ethics?
-Answer: 1. Data ethics are the principles and values that guide the handling of personal data, including respect for individuals' privacy and security, transparency, accountability, and fairness.
-3. What is GDPR?
-Answer: 2. GDPR stands for General Data Protection Regulation, which is a regulation in the European Union related to the protection of personal data. It sets out guidelines and requirements for organizations handling personal data of EU citizens.
-4. Do I have an obligation to provide personal information about myself to my employer?
-Answer: 1. Yes, you may have an obligation to provide some personal information about yourself to your employer, such as your name, contact details, and work history. However, the specific requirements will depend on the nature of your job and the laws in your jurisdiction.
-5. Which authority is responsible for monitoring financial institutions' compliance with data protection regulations in Denmark?
-Answer: 1. Datatilsynet (the Danish Data Protection Agency) is responsible for monitoring financial institutions' compliance with data protection regulations in Denmark.
-6. What happens to my data when I leave my job?
-Answer: 3. When you leave your job, your employer may retain some of your personal data for a limited period of time (usually up to five years) for administrative and legal purposes. However, the specific retention period will depend on the laws in your jurisdiction and the nature of your job.
-7. May my employer monitor my mobile phone via GPS?
-Answer: 2. No, your employer cannot monitor your mobile phone via GPS without your consent, unless it is a firm-issued device or there are exceptional circumstances. It is important to note that the use of GPS tracking without proper authorization can raise privacy concerns and may be illegal in some jurisdictions."
-1,1c12d622-1fbf-46d6-92f6-3068f366226b,llama2:7b,"Jeg vil have du svare på nedenstående quiz vedrørende dataetik. Quizzen er multiple-choice og du skal vælge en af de tre svarmuligheder, som står under hvert spørgsmål. Du er velkommen til at uddybe og begrunde dine svar.
+1. There is a difference between GDPR and data ethics. GDPR is a legal framework that sets out the rights of individuals regarding their personal data, while data ethics refers to the moral principles and values that guide the collection, storage, and use of personal data. Therefore, option 2 is the correct answer.
+2. Data etik is a term that encompasses the ethical considerations of collecting, storing, and using personal data. It involves making sure that the handling of personal data is fair, transparent, and respectful of individuals' privacy and rights. Therefore, option 1 is the correct answer.
+3. GDPR stands for General Data Protection Regulation, which is a European Union regulation that sets out the principles for collecting, storing, and using personal data. Therefore, option 2 is the correct answer.
+4. Under GDPR, you do not have an obligation to provide personal information about yourself to your employer unless it is necessary for the performance of your work or for legitimate business purposes. Therefore, option 3 is the correct answer.
+5. In Denmark, the Danish Data Protection Agency (Datatilsynet) is responsible for enforcing data protection laws and ensuring that companies comply with them. Therefore, option 1 is the correct answer.
+6. When you leave your job, your employer may keep your personal data for up to five years after you have left, but they must inform you of this and obtain your consent. Therefore, option 2 is the correct answer.
+7. Your employer may use a GPS tracking device on a company phone, but only if it is necessary for a legitimate business purpose, such as monitoring the location of employees during work hours. Therefore, option 2 is the correct answer.","['en', 'en', 'en', 'en', 'en', 'en', 'en', 'en', 'en', 'en', 'en', 'en', 'en', 'en', 'en', 'en', 'en', 'en']"
+1,c91e8a77-31b1-4f58-bbab-1628115807ad,llama2:7b,"Jeg vil have du svare på nedenstående quiz vedrørende dataetik. Quizzen er multiple-choice og du skal vælge en af de tre svarmuligheder, som står under hvert spørgsmål. Du er velkommen til at uddybe og begrunde dine svar.
 Du må under ingen omstændigheder svare på andre sprog end dansk.
 
 1. Er der forskel på GDPR og dataetik?
@@ -77,23 +70,23 @@ Du må under ingen omstændigheder svare på andre sprog end dansk.
     1. Ja, hvis det er en firmatelefon
     2. Nej, det er ikke lovligt
     3. Kun hvis det er et sagligt formål
-",0.5,"Jeg vil gøre mit bedste til at svarære på din quiz om dataetik og GDPR. Her er mine svar:
+",0.5,"Great, I'm ready to help you with the quiz! Here are my answers:
 
 1. Er der forskel på GDPR og dataetik?
-	* Ja, det er to begreber for det samme. GDPR (General Data Protection Regulation) er en europæisk lov om databeskyttelse, mens dataetik handler om etiske dilemmaer ved dataindsamling, -brug og -deliberation.
+Answer: 2. Ja, det er forskellige ting. While GDPR is a specific regulation related to personal data protection in the European Union, data ethics refers to the broader ethical considerations and principles related to data handling and management.
 2. Hvad er dataetik?
-	* Etiske dilemmaer ved dataindsamling, -brug og -deliberation.
+Answer: 1. Love og regler om datahåndtering. Data ethics refers to the ethical principles and values that guide the collection, storage, use, and protection of personal data.
 3. Hvad er GDPR?
-	* En europæisk lov om databeskyttelse.
+Answer: 2. En EU-forordning om databeskyttelse. The General Data Protection Regulation (GDPR) is a European Union regulation that sets out the rules for the collection, storage, use, and protection of personal data.
 4. Betyder GDPR, at jeg har pligt til at udlevere oplysninger om mig selv til min arbejdsgiver?
-	* Nej, du harret ikke til at udlevere oplysninger om dig selv til din arbejdsplads uden din samtykke.
+Answer: 2. Ja, hvis jeg arbejder med fortrolige oplysninger. According to the GDPR, you have the right to refuse to provide personal data to your employer if it is sensitive or confidential information.
 5. Hvilken myndighed fører tilsyn med finansielle virksomheders overholdelse af persondatareglerne i Danmark?
-	* Datatilsynet er den myndighed, der fører tilsyn med finansielle virksomheders overholdelse af persondatareglerne i Danmark.
+Answer: 1. Datatilsynet. In Denmark, the Data Protection Agency (Datatilsynet) is responsible for enforcing the Personal Data Act and ensuring that financial enterprises comply with data protection regulations.
 6. Hvad sker der med mine data, når jeg forlader min arbejdsplads?
-	* Arbejdsgiveren beholder din databehandlingsoplysninger i op til fem år efter du har forladt arbejdspladen, men du harret til at have adgang til og at fjerne din personoplysninger.
+Answer: 1. Arbejdsgiver beholder mine data i op til fem år efter jeg har forladt arbejdspladen. According to the Danish Personal Data Act, your former employer is entitled to keep your personal data for up to five years after you have left the job.
 7. Må din arbejdsgiver overvåge din mobiltelefon via en GPS?
-	* Nej, det er ikke lovligt at overvåge en persons mobiltelefon via en GPS uden deres samtykke. Det kræver en saglig forklaring og en retfærdig basis til at overvåge en persons personoplysninger."
-2,ee1dd6b8-6a53-42cc-afa3-d5a787ee677b,llama2:7b,"Jeg vil have du svare på nedenstående quiz vedrørende dataetik. Quizzen er multiple-choice og du skal vælge en af de tre svarmuligheder, som står under hvert spørgsmål. Du er velkommen til at uddybe og begrunde dine svar.
+Answer: 2. Nej, det er ikke lovligt. According to the Danish Personal Data Act, it is not legal for your employer to monitor your mobile phone location without your consent.","['en', 'en', 'da', 'de', 'da', 'en', 'da', 'de', 'da', 'en', 'da', 'de', 'da', 'en', 'da', 'de', 'da', 'en', 'da', 'de', 'da', 'en', 'da', 'de', 'da', 'en', 'da', 'de', 'da', 'en']"
+2,c2574d46-3087-438a-a1ee-56e0374d27b9,llama2:7b,"Jeg vil have du svare på nedenstående quiz vedrørende dataetik. Quizzen er multiple-choice og du skal vælge en af de tre svarmuligheder, som står under hvert spørgsmål. Du er velkommen til at uddybe og begrunde dine svar.
 Du må under ingen omstændigheder svare på andre sprog end dansk.
 
 1. Er der forskel på GDPR og dataetik?
@@ -139,8 +132,8 @@ Answer: 1. Datatilsynet. In Denmark, the Data Protection Agency (Datatilsynet) i
 6. Hvad sker der med mine data, når jeg forlader min arbejdsplads?
 Answer: 2. Alle mine data slettes automatisk, når jeg forlader arbejdspladsen. When you leave your job, your employer is required to delete all personal data about you within five years under Danish law.
 7. Må din arbejdsgiver overvåge din mobiltelefon via en GPS?
-Answer: 2. Nej, det er ikke lovligt. Your employer cannot use a GPS to track your mobile phone without your consent, as this would be a violation of your privacy under Danish law."
-3,56fcde5b-73c4-401a-a21d-61cddf9aeb20,mistral:7b,"Jeg vil have du svare på nedenstående quiz vedrørende dataetik. Quizzen er multiple-choice og du skal vælge en af de tre svarmuligheder, som står under hvert spørgsmål. Du er velkommen til at uddybe og begrunde dine svar.
+Answer: 2. Nej, det er ikke lovligt. Your employer cannot use a GPS to track your mobile phone without your consent, as this would be a violation of your privacy under Danish law.","['en', 'en', 'da', 'de', 'da', 'en', 'en', 'da', 'de', 'da', 'en', 'da', 'de', 'da', 'en', 'da', 'de', 'da', 'en', 'da', 'de', 'da', 'en', 'da', 'de', 'da', 'en', 'da', 'de', 'da', 'en']"
+3,7030de5b-3841-4eb1-aa7f-7f662e397a47,mistral:7b,"Jeg vil have du svare på nedenstående quiz vedrørende dataetik. Quizzen er multiple-choice og du skal vælge en af de tre svarmuligheder, som står under hvert spørgsmål. Du er velkommen til at uddybe og begrunde dine svar.
 Du må under ingen omstændigheder svare på andre sprog end dansk.
 
 1. Er der forskel på GDPR og dataetik?
@@ -171,14 +164,14 @@ Du må under ingen omstændigheder svare på andre sprog end dansk.
     1. Ja, hvis det er en firmatelefon
     2. Nej, det er ikke lovligt
     3. Kun hvis det er et sagligt formål
-",1.0,"1. Ja, det er forskellige ting
-2. God praksis, når man indsamler, bruger og deler data
-3. En EU-forordning om databeskyttelse
-4. Nej
-5. Datatilsynet
-6. Jeg skal sørge for at tage mine data med mig til min nye arbejdsgiver
-7. Kun hvis det er et sagligt formål"
-4,fe2e1076-9d05-47cf-b963-99cb571ee56b,mistral:7b,"Jeg vil have du svare på nedenstående quiz vedrørende dataetik. Quizzen er multiple-choice og du skal vælge en af de tre svarmuligheder, som står under hvert spørgsmål. Du er velkommen til at uddybe og begrunde dine svar.
+",1.0,"1. Ja, GDPR og dataetik er forskellige begreber, men de relaterer sig til hinanden. Dataetik reglerer god praksis i alle områder med handling af persondata.
+2. Det eneste korrekte svar er 3: God praksis, når man indsamler, bruger og deler data.
+3. Aller det eneste korrekte svar er 2: En EU-forordning om databeskyttelse.
+4. Ja, gdpr-loven pålægger arbejdsgivere til at udlevere oplysninger om medarbejder i ansøgeprocesserne til en nyt arbejdsgiver.
+5. Det er Finanstilsynet der fører tilsyn med finansielle virksomheders overholdelse af persondatareglerne i Danmark.
+6. De fleste arbejdspladser beholder persondata for en periode efter medarbejderen har forladt, fordi det er lovligt at gøre så indenfor to år fra datumet forlod arbejdspladen, men som mange også beholder data i op til fem år, hvis de har en overenskomst med medarbejderne om at bevare oplysninger længere.
+7. Det er lovligt for arbejdsgivere at overvåge deres medarbejder's mobiltelefon via en GPS, hvis det indgår i ansøgsprocessen eller som det er et sagligt formål for jobbeheden.","['da', 'da', 'da', 'no', 'da', 'da', 'da', 'da']"
+4,55dfb3a9-221f-4f48-a900-2581cd6b02a0,mistral:7b,"Jeg vil have du svare på nedenstående quiz vedrørende dataetik. Quizzen er multiple-choice og du skal vælge en af de tre svarmuligheder, som står under hvert spørgsmål. Du er velkommen til at uddybe og begrunde dine svar.
 Du må under ingen omstændigheder svare på andre sprog end dansk.
 
 1. Er der forskel på GDPR og dataetik?
@@ -211,20 +204,20 @@ Du må under ingen omstændigheder svare på andre sprog end dansk.
     3. Kun hvis det er et sagligt formål
 ",0.5,"
 1. Er der forskel på GDPR og dataetik?
-* Ja, det er forskellige ting.
+* Ja, det er forskellige ting. Dataetik er en disciplin, som handler om de moralske, sociale og juridiske spørgsmål, som forbindes med samling, brugen og delingen af persondata. GDPR er en lov, som regulerer hvordan virksomheder kan samle, bruge og dele persondata om mennesker.
 2. Hvad er dataetik?
-* God praksis, når man indsamler, bruger og deler data.
+* Dataetik er god praksis, når man indsamler, bruger og deler data. Det handler om at respektere menneskers privathed, sikre den korrekte behandling af persondata og garantiere transparence og kontrol over hvad data samles, hvordan det bliver brugt og hvem det bliver delt med.
 3. Hvad er GDPR?
-* En EU-forordning om databeskyttelse.
+* GDPR er en EU-forordning om databeskyttelse. Den blev indført i 2018 og regulerer, hvordan virksomheder må behandle persondata om mennesker.
 4. Betyder GDPR, at jeg har pligt til at udlevere oplysninger om mig selv til min arbejdsgiver?
-* Ja, hvis jeg arbejder med fortrolige oplysninger.
+* Ja, hvis du er ansat i en virksomhed, der samler eller bruger persondata om dig, så har du pligten til at udlevere oplysninger om dig til arbejdsgiveren. Det kan være navn, adresse, telefonnummer, e-postadresse og andre oplysninger, som kan identificere dig.
 5. Hvilken myndighed fører tilsyn med finansielle virksomheders overholdelse af persondatareglerne i Danmark?
-* Finanstilsynet.
+* Datatilsynet fører tilsyn med finansielle virksomheders overholdelse af persondatareglerne i Danmark. De har til opgave at kontrollere, hvordan virksomheder behandler persondata og hvorfor de samler, bruger og deler data.
 6. Hvad sker der med mine data, når jeg forlader min arbejdsplads?
-* Alle mine data slettes automatisk, når jeg forlader arbejdspladsen.
+* Det følger fra GDPR, at en ansat har ret til at blive informeret om hvad sker med hans persondata, når han forlader sin arbejdsgiver. Hvis du har samlet eller brugt data om dig i forbindelse med din arbejdsplads, så må de udlevere alle oplysninger til dig indenfor en måned efter du har forladt arbejdspladsen.
 7. Må din arbejdsgiver overvåge din mobiltelefon via en GPS?
-* Nej, det er ikke lovligt."
-5,1f8d9079-36e0-4f8f-9806-754db9c79f69,mistral:7b,"Jeg vil have du svare på nedenstående quiz vedrørende dataetik. Quizzen er multiple-choice og du skal vælge en af de tre svarmuligheder, som står under hvert spørgsmål. Du er velkommen til at uddybe og begrunde dine svar.
+* Nej, det er ikke lovligt. En ansat har ret til at have privathed og det er forbudt for arbejdsgiveren at overvåge hans mobiltelefon via en GPS eller andre metoder, der kan identificere ham. Det kan være en krav for arbejdsgiveren at have en mobiltelefon til jobbet, men han må ikke overvåge den.","['da', 'da', 'da', 'da', 'da', 'da', 'da', 'da', 'da', 'da', 'da', 'da', 'da', 'da', 'da', 'da', 'da', 'da', 'da', 'da', 'da', 'da', 'da']"
+5,f71c1cd4-bdc9-4ab9-8bfa-853af22374ff,mistral:7b,"Jeg vil have du svare på nedenstående quiz vedrørende dataetik. Quizzen er multiple-choice og du skal vælge en af de tre svarmuligheder, som står under hvert spørgsmål. Du er velkommen til at uddybe og begrunde dine svar.
 Du må under ingen omstændigheder svare på andre sprog end dansk.
 
 1. Er der forskel på GDPR og dataetik?
@@ -269,4 +262,4 @@ Du må under ingen omstændigheder svare på andre sprog end dansk.
 6. Hvilken myndighed fører tilsyn med persondatareglernes overholdelse i Danmark?
 * Datatilsynet fører tilsyn med persondatareglernes overholdelse i Danmark.
 7. Hvad sker der med mine data, når jeg forlader min arbejdsplads?
-* Alle mine data slettes automatisk, når jeg forlader arbejdspladsen."
+* Alle mine data slettes automatisk, når jeg forlader arbejdspladsen.","['da', 'da', 'da', 'da', 'da', 'da', 'da', 'da', 'da', 'da', 'da', 'da', 'da', 'da', 'da']"
