@@ -59,14 +59,17 @@ def run_models():
 
     df[title] = results
 
-    df.to_csv("overview.csv")
+    df.to_csv("overview.csv", index=False)
 
     # df.loc[len(df)] = new_row
 
 
+# def analyze_results():
+
+
 # create_models()
-run_models()
-run_models()
-run_models()
-run_models()
-run_models()
+# run_models()
+# run_models()
+# run_models()
+# run_models()
+# run_models()
