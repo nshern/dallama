@@ -1,10 +1,9 @@
-# 
+**Status: Pre-Alpha [Not Yet Functional]**
 <p align="center">
   <img src="image.png" alt="Dalama CLI">
 </p>
 
 
-**Status: Pre-Alpha [Not Yet Functional]**
 # Dalama
 Dalama aims to be a CLI built for testing the proficiency of communicating in danish for various open-source large-language models.
 
