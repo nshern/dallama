@@ -1,13 +1,12 @@
+# 
 <p align="center">
   <img src="image.png" alt="Dalama CLI">
 </p>
 
+
+**Status: Pre-Alpha [Not Yet Functional]**
 # Dalama
-Dalama is a CLI built for for easily creating, managing and testing multiple ollama models.
-
-This repository poses a design for a framework for automating and publishing benchmarking tests for off-the-shelf variations of common Free and Open Source Software (FOSS) Large Language Models (LLMs), available through [Ollama](https://ollama.ai/), specifically with the **goal of identifiying model(s) that can match or surpass GPT-4's proficiency in Danish communication** (should these exist).
-
-The framework is not inherently designed to evaluate Danish per se, but could likewise be used to evaluate other languages, albeit this not being the focus of this repo.
+Dalama aims to be a CLI built for testing the proficiency of communicating in danish for various open-source large-language models.
 
 The process is carried out in three overall steps:
 1. **Model creation**
@@ -96,14 +95,6 @@ The **Model creation** step can be extended *vertically*, as additional variatio
 - RAG
 - Fine-tuning
 
-The **Evaluation** step can be extended *horizontally*, adding additional evaluation steps. Possibilities include:
-- [Language detection](https://github.com/Mimino666/langdetect)
-- [Bing Spell Check API](https://www.microsoft.com/en-us/bing/apis/bing-spell-check-api)
-- [Language tool](https://languagetool.org/proofreading-api)
-- [Smodin](https://smodin.io/)
+The **Evaluation** step can be extended *horizontally*, adding additional evaluation steps.
 
 The process can be run *ad infinitum* to increase result confidence.
-
-## Requirements
-- GPU in order to run larger models such as (33b, 40b, 70b, 180b) 
-- Storage
