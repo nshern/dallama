@@ -21,7 +21,7 @@ def get_file_paths(directory):
 
 
 def evaluate_text(file):
-    api_key = "35ef7ef31c7443aea671d7b390d7029b"
+    api_key = ""
     endpoint = "https://api.bing.microsoft.com/v7.0/SpellCheck"
 
     with open(file, "r") as f:
