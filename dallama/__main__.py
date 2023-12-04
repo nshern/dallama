@@ -2,10 +2,15 @@ import argparse
 import logging
 import os
 import shutil
+import sqlite3
 
 from .model import Model
 
 logging.basicConfig(level=logging.INFO)
+
+
+# foo
+foo = "test"
 
 
 def ensure_ollama_on_path():
@@ -41,6 +46,29 @@ def create_model(args) -> None:
         base_model=args.base_model,
         prompt=getattr(args, "prompt", ""),
         temperature=getattr(args, "temperature", ""),
+    )
+
+
+def write_to_database(Model):
+    conn = sqlite3.connect("../database/models.db")
+    cursor = conn.cursor()
+
+    cursor.execute(
+        """
+     CREATE TABLE IF NOT EXISTS models (
+     id INTEGER PRIMARY KEY AUTOINCREMENT,
+     base_model TEXT NOT NULL,
+     prompt TEXT,
+     temperature REAL
+);
+"""
+    )
+
+    cursor.execute(
+        """
+ INSERT INTO models (base_model, prompt, temperature) VALUES (?, ?, ?);
+ """,
+        (my_model.base_model, my_model.prompt, my_model.temperature),
     )
 
 
