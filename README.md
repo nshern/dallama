@@ -100,4 +100,4 @@ The process can be run *ad infinitum* to increase result confidence.
 
 
 # TODO
-- [ ] Add spell-checking capabilities using Hunspell
+- [ ] Add spell-checking capabilities using Hunspell ([Phunspell](https://github.com/dvwright/phunspell))
