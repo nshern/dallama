@@ -188,10 +188,14 @@ if __name__ == "__main__":
         fresh_run=True,
         models=[
             "llama2:7b",
+            "llama2:13b",
             "mistral:7b",
+            "mistral:7b-instruct",
             "starling-lm:7b",
+            "orca-mini:13b",
             "neural-chat:7b",
             "zephyr:7b",
+            "vicuna:13b",
         ],
         temperatures=[0, 0.5, 1],
     )
