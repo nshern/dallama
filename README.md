@@ -97,3 +97,7 @@ The **Model creation** step can be extended *vertically*, as additional variatio
 The **Evaluation** step can be extended *horizontally*, adding additional evaluation steps.
 
 The process can be run *ad infinitum* to increase result confidence.
+
+
+# TODO
+- [ ] Add spell-checking capabilities using Hunspell

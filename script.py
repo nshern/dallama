@@ -184,18 +184,18 @@ def main(
 
 if __name__ == "__main__":
     main(
-        iterations=10,
-        fresh_run=True,
+        iterations=2,
+        fresh_run=False,
         models=[
-            "llama2:7b",
-            "llama2:13b",
+            # "llama2:7b",
+            # "llama2:13b",
             "mistral:7b",
             "mistral:7b-instruct",
-            "starling-lm:7b",
-            "orca-mini:13b",
+            # "starling-lm:7b",
+            # "orca-mini:13b",
             "neural-chat:7b",
-            "zephyr:7b",
-            "vicuna:13b",
+            # "zephyr:7b",
+            # "vicuna:13b",
         ],
         temperatures=[0, 0.5, 1],
     )
