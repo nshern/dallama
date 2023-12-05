@@ -4,13 +4,10 @@ import os
 import shutil
 import sqlite3
 
-from .model import Model
+# from .model import Model
+from dallama.model import Model
 
 logging.basicConfig(level=logging.INFO)
-
-
-# foo
-foo = "test"
 
 
 def ensure_ollama_on_path():
