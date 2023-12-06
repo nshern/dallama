@@ -4,13 +4,13 @@ import uuid
 from collections import Counter
 from typing import List, Optional
 
+import nltk
 import pandas as pd
+import phunspell
 import requests
 from langdetect import detect
 from nltk.tokenize import sent_tokenize
 from tqdm import tqdm
-
-from dallama import evaluate
 
 # This could be an argument
 # Check if model already exists
@@ -117,54 +117,42 @@ def analyze_results():
 
     df.to_csv("data/overview.csv", index=False)
 
-    # df["langs"] = langs
 
-    # print(df)
+def get_results_columns():
+    df = _read_overview()
 
+    res = []
 
-# TODO: Work on this
-# def evaluate_text(text):
-#     url = "https://api.languagetoolplus.com/v2/check"
-#     headers = {
-#         "accept": "application/json",
-#         "Content-Type": "application/x-www-form-urlencoded",
-#     }
-#     data = {
-#         "text": f"{text}",
-#         "language": "en-US",
-#         "enabledOnly": "false",
-#     }
+    for i in df.columns:
+        if str(i).startswith("res_"):
+            res.append(i)
 
-#     response = requests.post(url, headers=headers, data=data)
-
-#     matches = [i for i in response.json()["matches"]]
-
-#     mistakes = []
-#     if len(matches) > 0:
-#         for i in matches:
-#             mistakes.append(i["shortMessage"])
-
-#         count_dict = dict(Counter(mistakes))
-#         return count_dict
-
-#     else:
-#         return "None"
+    return res
 
 
-# evaluate_text("Helo darknes my old frend")
+def lookup_words(words: List[str]):
+    pspell = phunspell.Phunspell("da_DK")
+    return pspell.lookup_list(words)
 
 
-# df = _read_overview()
-# mistakes = []
-# for i in df["res_40178619-06c5-4212-9f5f-1d208f22db4c"]:
-#     mistakes.append(evaluate_text(i))
+def evaluate_results():
+    nltk.download("punkt")
+    df = _read_overview()
+    res_columns = get_results_columns()
+    for res_column in res_columns:
+        eval_col_name = res_column.replace("res_", "eval_")
+        misspellings = []
 
-# df["mistakes"] = mistakes
+        for text in df[res_column]:
+            tokens = nltk.word_tokenize(text)
+            foo = [token for token in tokens if token.isalpha()]
+            foo = lookup_words(foo)
+            misspellings.append(foo)
 
-# print(df)
+        df[eval_col_name] = misspellings
 
-
-# TODO: Introduce timer into mix, so that reposnse time is registered
+    # overwrite_csv(df)
+    df.to_csv("overview.csv")
 
 
 def main(
@@ -183,6 +171,7 @@ def main(
         create_models(models, temperatures)
 
     run_models(iterations)
+    evaluate_results()
 
     # evaluate()
 
@@ -192,14 +181,14 @@ if __name__ == "__main__":
         iterations=2,
         fresh_run=True,
         models=[
-            # "llama2:7b",
+            "llama2:7b",
             # "llama2:13b",
             "mistral:7b",
             # "mistral:7b-instruct",
             # "starling-lm:7b",
             # "orca-mini:13b",
-            # "neural-chat:7b",
-            # "zephyr:7b",
+            "neural-chat:7b",
+            "zephyr:7b",
             # "vicuna:13b",
         ],
         temperatures=[0, 1],
