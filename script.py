@@ -155,6 +155,24 @@ def evaluate_results():
     df.to_csv("overview.csv")
 
 
+def get_response_length():
+    df = _read_overview()
+
+    res_columns = get_results_columns()
+
+    for res_column in res_columns:
+        length_col_name = res_column.replace("res_", "len_")
+        lens = []
+
+        for text in df[res_column]:
+            length = len(text)
+            lens.append(length)
+
+        df[length_col_name] = lens
+
+    df.to_csv("overview.csv")
+
+
 def main(
     iterations: int,
     models: List[str] = [],
@@ -172,6 +190,7 @@ def main(
 
     run_models(iterations)
     evaluate_results()
+    get_response_length()
 
     # evaluate()
 
@@ -183,12 +202,12 @@ if __name__ == "__main__":
         models=[
             "llama2:7b",
             # "llama2:13b",
-            "mistral:7b",
+            # "mistral:7b",
             # "mistral:7b-instruct",
             # "starling-lm:7b",
             # "orca-mini:13b",
-            "neural-chat:7b",
-            "zephyr:7b",
+            # "neural-chat:7b",
+            # "zephyr:7b",
             # "vicuna:13b",
         ],
         temperatures=[0, 1],
