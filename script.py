@@ -10,6 +10,8 @@ from langdetect import detect
 from nltk.tokenize import sent_tokenize
 from tqdm import tqdm
 
+from dallama import evaluate
+
 # This could be an argument
 # Check if model already exists
 
@@ -51,6 +53,7 @@ def _read_overview():
 
 
 def run_models(iterations=1):
+    print("running models")
     for i in tqdm(range(iterations)):
         df = _read_overview()
         results = []
@@ -112,7 +115,7 @@ def analyze_results():
 
     df["results"] = results
 
-    df.to_csv("overview.csv", index=False)
+    df.to_csv("data/overview.csv", index=False)
 
     # df["langs"] = langs
 
@@ -181,23 +184,25 @@ def main(
 
     run_models(iterations)
 
+    # evaluate()
+
 
 if __name__ == "__main__":
     main(
         iterations=2,
-        fresh_run=False,
+        fresh_run=True,
         models=[
             # "llama2:7b",
             # "llama2:13b",
             "mistral:7b",
-            "mistral:7b-instruct",
+            # "mistral:7b-instruct",
             # "starling-lm:7b",
             # "orca-mini:13b",
-            "neural-chat:7b",
+            # "neural-chat:7b",
             # "zephyr:7b",
             # "vicuna:13b",
         ],
-        temperatures=[0, 0.5, 1],
+        temperatures=[0, 1],
     )
 # analyze_results()
 # analyze_results()
