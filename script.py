@@ -160,7 +160,7 @@ def evaluate_results():
 
         df[eval_col_name] = misspellings
 
-    df.to_csv("overview.csv")
+    df.to_csv("overview.csv", index=False)
 
 
 def get_response_length():
@@ -178,25 +178,48 @@ def get_response_length():
 
         df[length_col_name] = lens
 
-    df.to_csv("overview.csv")
+    df.to_csv("overview.csv", index=False)
 
 
 def count_misspellings():
     df = _read_overview()
 
     # TODO: Find a way to do this that is not deprecated
-    df["sum_of_lengths"] = df.filter(like="eval").applymap(len).sum(axis=1)
+    df["sum_of_misspellings"] = (
+        df.filter(like="eval").applymap(len).sum(axis=1)
+    )
 
     df.to_csv("overview.csv")
 
 
-def visualize():
+def transpose():
     df = _read_overview()
 
-    #     model = [fig] = px.scatter(x=[0, 1, 2, 3, 4], y=[0, 1, 4, 9, 16])
-    # print(type(fig))
+    list_of_dicts = df.to_dict(orient="records")
 
-    # fig.show()
+    res = pd.DataFrame()
+    for i in list_of_dicts:
+        res_columns = []
+        eval_columns = []
+        for k in i.keys():
+            if str(k).startswith("res_"):
+                res_columns.append(i[k])
+            if str(k).startswith("eval_"):
+                eval_columns.append(i[k])
+
+        df = pd.DataFrame()
+
+        df["result"] = res_columns
+        df["eval"] = eval_columns
+        df["temperature"] = i["temperature"]
+        df["base_model"] = i["base_model"]
+        df["id"] = i["id"]
+
+        # TODO: Insert calculations for length of output
+
+        res = pd.concat([df, res])
+
+    res.to_csv("transposed.csv", index=False)
 
 
 def main(
@@ -218,22 +241,24 @@ def main(
     evaluate_results()
     get_response_length()
     count_misspellings()
+    transpose()
 
 
 if __name__ == "__main__":
     main(
-        iterations=2,
+        iterations=10,
         fresh_run=True,
         models=[
             "llama2:7b",
-            # "llama2:13b",
-            # "mistral:7b",
-            # "mistral:7b-instruct",
-            # "starling-lm:7b",
-            # "orca-mini:13b",
-            # "neural-chat:7b",
-            # "zephyr:7b",
-            # "vicuna:13b",
+            "llama2:13b",
+            "mistral:7b",
+            "mistral:7b-instruct",
+            "starling-lm:7b",
+            "orca-mini:13b",
+            "neural-chat:7b",
+            "zephyr:7b",
+            "vicuna:7b",
+            "vicuna:13b",
         ],
         temperatures=[0, 0.5, 1],
     )
