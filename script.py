@@ -1,19 +1,16 @@
 import json
 import subprocess
 import uuid
-from collections import Counter
-from typing import List, Optional
+from typing import List
 
 import nltk
 import pandas as pd
 import phunspell
+import plotly.express as px
 import requests
 from langdetect import detect
 from nltk.tokenize import sent_tokenize
 from tqdm import tqdm
-
-# This could be an argument
-# Check if model already exists
 
 
 def create_models(models: List[str], temperatures: List[float]):
@@ -130,6 +127,18 @@ def get_results_columns():
     return res
 
 
+def get_eval_columns():
+    df = _read_overview()
+
+    res = []
+
+    for i in df.columns:
+        if str(i).startswith("eval_"):
+            res.append(i)
+
+    return res
+
+
 def lookup_words(words: List[str]):
     pspell = phunspell.Phunspell("da_DK")
     return pspell.lookup_list(words)
@@ -151,7 +160,6 @@ def evaluate_results():
 
         df[eval_col_name] = misspellings
 
-    # overwrite_csv(df)
     df.to_csv("overview.csv")
 
 
@@ -173,6 +181,24 @@ def get_response_length():
     df.to_csv("overview.csv")
 
 
+def count_misspellings():
+    df = _read_overview()
+
+    # TODO: Find a way to do this that is not deprecated
+    df["sum_of_lengths"] = df.filter(like="eval").applymap(len).sum(axis=1)
+
+    df.to_csv("overview.csv")
+
+
+def visualize():
+    df = _read_overview()
+
+    #     model = [fig] = px.scatter(x=[0, 1, 2, 3, 4], y=[0, 1, 4, 9, 16])
+    # print(type(fig))
+
+    # fig.show()
+
+
 def main(
     iterations: int,
     models: List[str] = [],
@@ -191,8 +217,7 @@ def main(
     run_models(iterations)
     evaluate_results()
     get_response_length()
-
-    # evaluate()
+    count_misspellings()
 
 
 if __name__ == "__main__":
@@ -210,13 +235,5 @@ if __name__ == "__main__":
             # "zephyr:7b",
             # "vicuna:13b",
         ],
-        temperatures=[0, 1],
+        temperatures=[0, 0.5, 1],
     )
-# analyze_results()
-# analyze_results()
-# create_models()
-# run_models()
-# run_models()
-
-# run_models()
-# run_models()

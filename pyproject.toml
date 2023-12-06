@@ -13,6 +13,7 @@ tqdm = "^4.66.1"
 langdetect = "^1.0.9"
 nltk = "^3.8.1"
 phunspell = "^0.1.6"
+plotly = "^5.18.0"
 
 
 [tool.poetry.group.dev.dependencies]
