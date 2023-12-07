@@ -236,6 +236,42 @@ def add_calculations():
     df.to_csv("transposed.csv")
 
 
+def visualize():
+    df = _read_transposition()
+
+    df["Amount of misspellings"] = df["eval_len"]
+    df["Length of response"] = df["res_len"]
+    # df["eval"] = df["eval"].apply(ast.literal_eval)
+    # df["set_eval"] = df["eval"].apply(set)
+    df["eval"] = df["eval"].apply(str.lower)
+    df["set_eval"] = df["eval"].apply(lambda x: set([x]))
+    df["set_eval"] = df["set_eval"].apply(list)
+    # df["set_eval"] = df["set_eval"].apply(lambda x: "\n".join(x))
+
+    formatted_list = []
+    for i in df["set_eval"]:
+        new_list = []
+
+        for s in i:
+            new_list.append(s + "\n")
+
+        formatted_list.append(new_list)
+
+    df["formatted_list"] = formatted_list
+    fig = px.scatter(
+        df,
+        x="Amount of misspellings",
+        y="Length of response",
+        facet_col="temperature",
+        facet_row="base_model",
+        hover_data={"formatted_list": True},
+    )
+    fig.update_layout(margin=dict(l=50, r=50, t=50, b=50))
+    fig.show()
+
+    df.to_csv("foo.csv")
+
+
 def main(
     iterations: int,
     models: List[str] = [],
@@ -256,25 +292,38 @@ def main(
     get_response_length()
     count_misspellings()
     transpose()
+    add_calculations()
 
 
 if __name__ == "__main__":
-    # main(
-    #     iterations=5,
-    #     fresh_run=True,
-    #     models=[
-    #         "llama2:7b",
-    #         # "llama2:13b",
-    #         "mistral:7b",
-    #         # "mistral:7b-instruct",
-    #         # "starling-lm:7b",
-    #         # "orca-mini:13b",
-    #         "neural-chat:7b",
-    #         # "zephyr:7b",
-    #         "vicuna:7b",
-    #         # "vicuna:13b",
-    #     ],
-    #     temperatures=[0, 0.5, 1],
-    # )
+    main(
+        iterations=50,
+        fresh_run=True,
+        models=[
+            "llama2:7b",
+            # "llama2:13b",
+            "mistral:7b",
+            # "mistral:7b-instruct",
+            # "starling-lm:7b",
+            # "orca-mini:13b",
+            "neural-chat:7b",
+            # "zephyr:7b",
+            "vicuna:7b",
+            # "vicuna:13b",
+        ],
+        temperatures=[0, 0.5, 1],
+    )
 
     add_calculations()
+    visualize()
+    df = _read_transposition()
+
+    fig = px.scatter(
+        df,
+        x="res_len",
+        y="eval_len",
+        facet_col="temperature",
+        facet_row="base_model",
+    )
+    fig.show()
+    visualize()
