@@ -1,3 +1,4 @@
+import ast
 import json
 import subprocess
 import uuid
@@ -46,6 +47,11 @@ def _clear_overview() -> None:
 
 def _read_overview():
     df = pd.read_csv("overview.csv")
+    return df
+
+
+def _read_transposition():
+    df = pd.read_csv("transposed.csv")
     return df
 
 
@@ -215,11 +221,19 @@ def transpose():
         df["base_model"] = i["base_model"]
         df["id"] = i["id"]
 
-        # TODO: Insert calculations for length of output
-
         res = pd.concat([df, res])
 
     res.to_csv("transposed.csv", index=False)
+
+
+def add_calculations():
+    df = _read_transposition()
+    df["eval"] = df["eval"].apply(ast.literal_eval)
+    df["eval_len"] = df["eval"].apply(len)
+
+    df["res_len"] = df["result"].apply(len)
+
+    df.to_csv("transposed.csv")
 
 
 def main(
@@ -245,20 +259,22 @@ def main(
 
 
 if __name__ == "__main__":
-    main(
-        iterations=10,
-        fresh_run=True,
-        models=[
-            "llama2:7b",
-            "llama2:13b",
-            "mistral:7b",
-            "mistral:7b-instruct",
-            "starling-lm:7b",
-            "orca-mini:13b",
-            "neural-chat:7b",
-            "zephyr:7b",
-            "vicuna:7b",
-            "vicuna:13b",
-        ],
-        temperatures=[0, 0.5, 1],
-    )
+    # main(
+    #     iterations=5,
+    #     fresh_run=True,
+    #     models=[
+    #         "llama2:7b",
+    #         # "llama2:13b",
+    #         "mistral:7b",
+    #         # "mistral:7b-instruct",
+    #         # "starling-lm:7b",
+    #         # "orca-mini:13b",
+    #         "neural-chat:7b",
+    #         # "zephyr:7b",
+    #         "vicuna:7b",
+    #         # "vicuna:13b",
+    #     ],
+    #     temperatures=[0, 0.5, 1],
+    # )
+
+    add_calculations()
