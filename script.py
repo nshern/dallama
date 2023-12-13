@@ -154,11 +154,11 @@ def evaluate_results():
     nltk.download("punkt")
     df = _read_overview()
     res_columns = get_results_columns()
-    for res_column in res_columns:
+    for res_column in tqdm(res_columns):
         eval_col_name = res_column.replace("res_", "eval_")
         misspellings = []
 
-        for text in df[res_column]:
+        for text in tqdm(df[res_column]):
             tokens = nltk.word_tokenize(text)
             foo = [token for token in tokens if token.isalpha()]
             foo = lookup_words(foo)
@@ -287,7 +287,7 @@ def main(
         _clear_overview()
         create_models(models, temperatures)
 
-    run_models(iterations)
+    # run_models(iterations)
     evaluate_results()
     get_response_length()
     count_misspellings()
@@ -296,42 +296,48 @@ def main(
 
 
 if __name__ == "__main__":
-    main(
-        iterations=50,
-        fresh_run=True,
-        models=[
-            "llama2:7b",
-            "llama2:13b",
-            "mistral:7b",
-            "mistral:7b-instruct",
-            "starling-lm:7b",
-            "orca-mini:13b",
-            "orca2:7b",
-            "orca2:13b",
-            "neural-chat:7b",
-            "zephyr:7b",
-            "vicuna:7b",
-            "vicuna:13b",
-            "vicuna:33b",
-            "falcon:40b",
-            "stable-beluga:7b",
-            "stable-beluga:13b",
-            "wizard-vicuna:13b",
-            "alfred:40b",
-        ],
-        temperatures=[0, 0.5, 1],
-    )
+    # main(
+    #     iterations=50,
+    #     fresh_run=False,
+    #     models=[
+    #         "llama2:7b",
+    #         "llama2:13b",
+    #         "mistral:7b",
+    #         "mistral:7b-instruct",
+    #         "starling-lm:7b",
+    #         "orca-mini:13b",
+    #         "orca2:7b",
+    #         "orca2:13b",
+    #         "neural-chat:7b",
+    #         "zephyr:7b",
+    #         "vicuna:7b",
+    #         "vicuna:13b",
+    #         "vicuna:33b",
+    #         "falcon:40b",
+    #         "stable-beluga:7b",
+    #         "stable-beluga:13b",
+    #         "wizard-vicuna:13b",
+    #         "alfred:40b",
+    #     ],
+    #     temperatures=[0, 0.5, 1],
+    # )
 
+    # transpose()
+    # add_calculations()
+    # visualize()
+    # df = _read_transposition()
+
+    # fig = px.scatter(
+    #     df,
+    #     x="res_len",
+    #     y="eval_len",
+    #     facet_col="temperature",
+    #     facet_row="base_model",
+    # )
+    # fig.show()
+    # visualize()
+    # evaluate_results()
+    get_response_length()
+    count_misspellings()
+    transpose()
     add_calculations()
-    visualize()
-    df = _read_transposition()
-
-    fig = px.scatter(
-        df,
-        x="res_len",
-        y="eval_len",
-        facet_col="temperature",
-        facet_row="base_model",
-    )
-    fig.show()
-    visualize()
