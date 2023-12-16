@@ -14,22 +14,6 @@ from dallama.model import Model
 logging.basicConfig(level=logging.INFO)
 
 
-def _read_database():
-    command = ["ollama list"]
-
-    process = subprocess.Popen(
-        command, subprocess.PIPE, stderr=subprocess.PIPE, text=True
-    )
-    stdout, stderr = process.communicate()
-
-    if process.returncode != 0:
-        print(f"Command failed with error: {stderr}")
-    else:
-        output = StringIO(stdout)
-        df = pd.read_csv(output)
-        print(df.head())
-
-
 def ensure_ollama_on_path():
     """Check whether Ollama is on PATH and marked as executable."""
     if shutil.which("ollama") is None:
@@ -118,4 +102,4 @@ def main():
 
 
 if __name__ == "__main__":
-    _read_database()
+    main()

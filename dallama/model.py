@@ -13,6 +13,7 @@ class Model:
     def create_model(self, model_filepath):
         command = f"ollama create {self.id} -f {model_filepath}"
         subprocess.run(command, shell=True)
+        return self
 
     def __init__(
         self,
@@ -46,6 +47,7 @@ class Model:
         self.create_model(model_filepath)
 
         # TODO: Change this to use sqlite instead of a csv
+        # TODO: This logic should not be in Model class but implemented in CLI
         overview = pd.read_csv("./overview.csv")
 
         _dict = {
@@ -62,6 +64,3 @@ class Model:
         result.to_csv("./overview.csv", index=False)
 
         print(f"Succesfully created model {self.id}")
-
-
-# if __name__ == "__main__":
