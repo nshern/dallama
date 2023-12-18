@@ -2,6 +2,12 @@ import subprocess
 
 import pandas as pd
 
+"""
+TODO:
+    - Remove base models from overview
+
+"""
+
 
 def _get_ollama_list():
     result = subprocess.run(
@@ -68,7 +74,7 @@ def _get_base_models():
     return base_models
 
 
-def _get_overview():
+def _get_ollama_overview():
     df = pd.DataFrame()
     df["Id"] = _get_ids()
     df["Temperature"] = _get_temperatures()
@@ -78,4 +84,39 @@ def _get_overview():
     return df
 
 
-df = _get_overview()
+def _merge_with_results(df):
+    # Get results
+    results = pd.read_csv("results.csv")
+
+    result_columns = {}
+    for col in results.columns:
+        if str(col).startswith("res"):
+            result_columns[col] = results[col]
+
+    for k, v in result_columns.items():
+        df[k] = v
+
+    eval_columns = {}
+    for col in results.columns:
+        if str(col).startswith("eval"):
+            eval_columns[col] = results[col]
+
+    for k, v in eval_columns.items():
+        df[k] = v
+
+    return df
+
+
+def _remove_base_models_from_overview():
+    pass
+
+
+def get_overview():
+    ollama_overview = _get_ollama_overview()
+    df = _merge_with_results(ollama_overview)
+    return df
+
+
+if __name__ == "__main__":
+    df = get_overview()
+    df.to_csv("foo.csv")

@@ -31,36 +31,19 @@ class Model:
         self.model_file = f"FROM {self.base_model}\n"
 
         if self.prompt is not None:
-            with open(f"./prompts/{self.prompt}") as f:
+            with open(f"../prompts/{self.prompt}") as f:
                 self.prompt = f.read()
             self.model_file += f'SYSTEM """\n{self.prompt}\n"""\n'
 
         if self.temperature is not None:
             self.model_file += f"PARAMETER temperature {self.temperature}"
 
-        model_filepath = f"./tmp/{self.id}"
+        model_filepath = f"../tmp/{self.id}"
 
         with open(model_filepath, "w") as f:
             f.write(self.model_file)
 
         # TODO: Check if model already exists
         self.create_model(model_filepath)
-
-        # TODO: Change this to use sqlite instead of a csv
-        # TODO: This logic should not be in Model class but implemented in CLI
-        overview = pd.read_csv("./overview.csv")
-
-        _dict = {
-            "id": self.id,
-            "base_model": self.base_model,
-            "prompt": self.prompt,
-            "temperature": self.temperature,
-        }
-
-        df = pd.DataFrame([_dict])
-
-        result = pd.concat([overview, df], axis=0)
-
-        result.to_csv("./overview.csv", index=False)
 
         print(f"Succesfully created model {self.id}")

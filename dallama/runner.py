@@ -11,10 +11,10 @@ import plotly.express as px
 import requests
 from langdetect import detect
 from nltk.tokenize import sent_tokenize
+from ollama_utils import get_overview
 from tqdm import tqdm
 
 
-# This is a test
 def create_models(models: List[str], temperatures: List[float]):
     prompts = ["gdpr"]
 
@@ -29,25 +29,29 @@ def create_models(models: List[str], temperatures: List[float]):
         subprocess.run(i, shell=True)
 
 
-def _overview_is_empty():
-    df = pd.read_csv("overview.csv")
-    if df.shape[0] == 0:
-        return True
-    else:
-        return False
+# def _overview_is_empty():
+#     df = pd.read_csv("overview.csv")
+#     if df.shape[0] == 0:
+#         return True
+#     else:
+#         return False
 
 
-def _clear_overview() -> None:
-    print("Clearing overview")
-    columns = ["id", "base_model", "prompt", "temperature", "langs", "results"]
-    res = pd.DataFrame(columns=columns)
+# def _clear_overview() -> None:
+#     print("Clearing overview")
+#     columns = ["id", "base_model", "prompt", "temperature", "langs", "results"]
+#     res = pd.DataFrame(columns=columns)
 
-    res.to_csv("overview.csv", index=False)
-    print("Overview was cleared")
+#     res.to_csv("overview.csv", index=False)
+#     print("Overview was cleared")
 
 
-def _read_overview():
-    df = pd.read_csv("overview.csv")
+def write_results(df):
+    df.to_csv("results.csv", index=False)
+
+
+def read_results():
+    df = pd.read_csv("results.csv")
     return df
 
 
@@ -59,10 +63,10 @@ def _read_transposition():
 def run_models(iterations=1):
     print("running models")
     for i in tqdm(range(iterations)):
-        df = _read_overview()
+        df = get_overview()
         results = []
 
-        ids = [i for i in df["id"]]
+        ids = [i for i in df["Id"]]
 
         for id in ids:
             url = "http://localhost:11434/api/generate"
@@ -88,11 +92,13 @@ def run_models(iterations=1):
 
         df[title] = results
 
-        df.to_csv("overview.csv", index=False)
+        write_results(df)
+        # df.to_csv("overview.csv", index=False)
 
 
 def analyze_results():
-    df = _read_overview()
+    # df = _read_overview()
+    df = read_results()
     columns = df.columns
 
     for i in columns:
@@ -119,11 +125,12 @@ def analyze_results():
 
     df["results"] = results
 
-    df.to_csv("data/overview.csv", index=False)
+    # df.to_csv("data/overview.csv", index=False)
+    write_results(df)
 
 
 def get_results_columns():
-    df = _read_overview()
+    df = read_results()
 
     res = []
 
@@ -135,7 +142,7 @@ def get_results_columns():
 
 
 def get_eval_columns():
-    df = _read_overview()
+    df = read_results()
 
     res = []
 
@@ -153,7 +160,9 @@ def lookup_words(words: List[str]):
 
 def evaluate_results():
     nltk.download("punkt")
-    df = _read_overview()
+    # df = _read_overview()
+    # df = read_results()
+    df = get_overview()
     res_columns = get_results_columns()
     for res_column in tqdm(res_columns):
         eval_col_name = res_column.replace("res_", "eval_")
@@ -167,11 +176,12 @@ def evaluate_results():
 
         df[eval_col_name] = misspellings
 
-    df.to_csv("overview.csv", index=False)
+    write_results(df)
+    # df.to_csv("overview.csv", index=False)
 
 
 def get_response_length():
-    df = _read_overview()
+    df = read_results()
 
     res_columns = get_results_columns()
 
@@ -185,22 +195,24 @@ def get_response_length():
 
         df[length_col_name] = lens
 
-    df.to_csv("overview.csv", index=False)
+    write_results(df)
+    # df.to_csv("overview.csv", index=False)
 
 
 def count_misspellings():
-    df = _read_overview()
+    df = read_results()
 
     # TODO: Find a way to do this that is not deprecated
     df["sum_of_misspellings"] = (
         df.filter(like="eval").applymap(len).sum(axis=1)
     )
 
-    df.to_csv("overview.csv")
+    write_results(df)
+    # df.to_csv("overview.csv")
 
 
 def transpose():
-    df = _read_overview()
+    df = read_results
 
     list_of_dicts = df.to_dict(orient="records")
 
@@ -285,43 +297,43 @@ def main(
                 "Models and iterations need to specified if \
                              fresh_run is set to true"
             )
-        _clear_overview()
+        # _clear_overview()
         create_models(models, temperatures)
 
-    # run_models(iterations)
+    run_models(iterations)
     evaluate_results()
-    get_response_length()
-    count_misspellings()
-    transpose()
-    add_calculations()
+    # get_response_length()
+    # count_misspellings()
+    # transpose()
+    # add_calculations()
 
 
 if __name__ == "__main__":
-    # main(
-    #     iterations=50,
-    #     fresh_run=False,
-    #     models=[
-    #         "llama2:7b",
-    #         "llama2:13b",
-    #         "mistral:7b",
-    #         "mistral:7b-instruct",
-    #         "starling-lm:7b",
-    #         "orca-mini:13b",
-    #         "orca2:7b",
-    #         "orca2:13b",
-    #         "neural-chat:7b",
-    #         "zephyr:7b",
-    #         "vicuna:7b",
-    #         "vicuna:13b",
-    #         "vicuna:33b",
-    #         "falcon:40b",
-    #         "stable-beluga:7b",
-    #         "stable-beluga:13b",
-    #         "wizard-vicuna:13b",
-    #         "alfred:40b",
-    #     ],
-    #     temperatures=[0, 0.5, 1],
-    # )
+    main(
+        iterations=3,
+        fresh_run=False,
+        models=[
+            "llama2:7b",
+            # "llama2:13b",
+            # "mistral:7b",
+            # "mistral:7b-instruct",
+            # "starling-lm:7b",
+            # "orca-mini:13b",
+            # "orca2:7b",
+            # "orca2:13b",
+            # "neural-chat:7b",
+            # "zephyr:7b",
+            # "vicuna:7b",
+            # "vicuna:13b",
+            # "vicuna:33b",
+            # "falcon:40b",
+            # "stable-beluga:7b",
+            # "stable-beluga:13b",
+            # "wizard-vicuna:13b",
+            # "alfred:40b",
+        ],
+        temperatures=[0, 0.5, 1],
+    )
 
     # transpose()
     # add_calculations()
@@ -338,7 +350,7 @@ if __name__ == "__main__":
     # fig.show()
     # visualize()
     # evaluate_results()
-    get_response_length()
-    count_misspellings()
-    transpose()
-    add_calculations()
+    # get_response_length()
+    # count_misspellings()
+    # transpose()
+    # add_calculations()
