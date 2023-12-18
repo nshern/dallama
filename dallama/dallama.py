@@ -3,10 +3,6 @@ import logging
 import os
 import shutil
 import sqlite3
-import subprocess
-from io import StringIO
-
-import pandas as pd
 
 # from .model import Model
 from dallama.model import Model
