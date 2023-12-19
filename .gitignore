@@ -8,3 +8,4 @@ dallama/__pycache__
 __pycache__
 database/models.db
 .DS_Store
+archived
