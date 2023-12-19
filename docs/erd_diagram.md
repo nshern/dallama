@@ -5,6 +5,7 @@
 erDiagram
     MODEL }|--o{ RESULT : has
     RESULT ||--|| EVALUATION: has
+    MODEL ||--|| PROMPT: has
 
 
     MODEL {
@@ -25,7 +26,13 @@ erDiagram
     EVALUATION {
         string id PK
         string result_id FK
-        List[str] misspellings
+        string misspellings
         int amount_of_misspellings
+    }
+
+    PROMPT {
+        string id PK
+        string text
+        
     }
 ```
