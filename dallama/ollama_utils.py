@@ -9,6 +9,7 @@ TODO:
 """
 
 
+# Test test
 def _get_ollama_list():
     result = subprocess.run(
         ["ollama", "list"], stdout=subprocess.PIPE, text=True
@@ -119,4 +120,4 @@ def get_overview():
 
 if __name__ == "__main__":
     df = get_overview()
-    df.to_csv("foo.csv")
+    # df.to_csv("foo.csv")
