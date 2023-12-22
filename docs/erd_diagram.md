@@ -31,8 +31,8 @@ erDiagram
     }
 
     PROMPT {
-        string id PK
-        string text
+        string title PK
+        text content
         
     }
 ```
