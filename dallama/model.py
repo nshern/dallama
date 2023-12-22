@@ -1,7 +1,4 @@
 import subprocess
-import uuid
-
-import pandas as pd
 
 
 class Model:
@@ -24,13 +21,13 @@ class Model:
         # TODO: ID Should be based on parameters, so that we can check if it
         # already exists
 
-        self.id = str(uuid.uuid4())
         self.base_model = base_model
         self.prompt = prompt
         self.temperature = temperature
         self.model_file = f"FROM {self.base_model}\n"
 
         if self.prompt is not None:
+            # Here we should look up in database
             with open(f"../prompts/{self.prompt}") as f:
                 self.prompt = f.read()
             self.model_file += f'SYSTEM """\n{self.prompt}\n"""\n'
@@ -45,5 +42,7 @@ class Model:
 
         # TODO: Check if model already exists
         self.create_model(model_filepath)
+
+        self.id = hash(self.model_file)
 
         print(f"Succesfully created model {self.id}")

@@ -90,6 +90,7 @@ def _merge_with_results(df):
     results = pd.read_csv("results.csv")
 
     result_columns = {}
+
     for col in results.columns:
         if str(col).startswith("res"):
             result_columns[col] = results[col]
@@ -98,6 +99,7 @@ def _merge_with_results(df):
         df[k] = v
 
     eval_columns = {}
+
     for col in results.columns:
         if str(col).startswith("eval"):
             eval_columns[col] = results[col]
