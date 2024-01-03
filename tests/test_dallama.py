@@ -13,9 +13,7 @@ def setup_prompt():
     # Setup code
     title = "foo"
     content = "baz"
-    subprocess.run(
-        f"dallama create_prompt -t '{title}' -c '{content}'", shell=True
-    )
+    subprocess.run(f"dallama create_prompt -t '{title}' -c '{content}'", shell=True)
     yield {"title": title, "content": content}
 
     # Teardown code - deletes database
