@@ -25,3 +25,8 @@ def retrieve_prompt(id):
 
         else:
             print("NO content found")
+
+
+if __name__ == "__main__":
+    content = retrieve_prompt("gdpr")
+    print(content)

@@ -1,8 +1,9 @@
 import subprocess
 
-from sqlalchemy import MetaData, Table, create_engine, select
-
+# from dallama.__main__ import main
 from dallama.database import retrieve_prompt
+
+# from sqlalchemy import MetaData, Table, create_engine, select
 
 
 class Model:
@@ -44,7 +45,7 @@ class Model:
 
         self.id = hash(self.model_file)
         self.id = str(self.id).replace("-", "")
-        model_filepath = f"../tmp/{self.id}"
+        model_filepath = f"tmp/{self.id}"
 
         with open(model_filepath, "w") as f:
             f.write(self.model_file)
@@ -53,3 +54,7 @@ class Model:
         self.create_model(model_filepath)
 
         print(f"Succesfully created model {self.id}")
+
+
+if __name__ == "__main__":
+    model = Model(base_model="llama:7b", prompt_id="gdpr", temperature="1")
