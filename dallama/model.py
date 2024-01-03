@@ -1,5 +1,9 @@
 import subprocess
 
+from sqlalchemy import MetaData, Table, create_engine, select
+
+from dallama.database import retrieve_prompt
+
 
 class Model:
     """
@@ -15,26 +19,31 @@ class Model:
     def __init__(
         self,
         base_model: str,
-        prompt: str = "",
+        prompt_id: str = "",
         temperature: str = "1",
     ):
         # TODO: ID Should be based on parameters, so that we can check if it
         # already exists
 
         self.base_model = base_model
-        self.prompt = prompt
+        self.prompt_id = prompt_id
         self.temperature = temperature
         self.model_file = f"FROM {self.base_model}\n"
 
-        if self.prompt is not None:
-            # Here we should look up in database
-            with open(f"../prompts/{self.prompt}") as f:
-                self.prompt = f.read()
+        if self.prompt_id is not None:
+            content = retrieve_prompt(id=self.prompt_id)
+            self.prompt = content
+
+            # TODO: Here we should look up in database instead
+            # with open(f"../prompts/{self.prompt}") as f:
+            #     self.prompt = f.read()
             self.model_file += f'SYSTEM """\n{self.prompt}\n"""\n'
 
         if self.temperature is not None:
             self.model_file += f"PARAMETER temperature {self.temperature}"
 
+        self.id = hash(self.model_file)
+        self.id = str(self.id).replace("-", "")
         model_filepath = f"../tmp/{self.id}"
 
         with open(model_filepath, "w") as f:
@@ -42,7 +51,5 @@ class Model:
 
         # TODO: Check if model already exists
         self.create_model(model_filepath)
-
-        self.id = hash(self.model_file)
 
         print(f"Succesfully created model {self.id}")

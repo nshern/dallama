@@ -9,6 +9,9 @@ TODO:
 """
 
 
+df = pd.DataFrame()
+
+
 # Test test
 def _get_ollama_list():
     result = subprocess.run(

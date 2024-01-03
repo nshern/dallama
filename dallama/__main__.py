@@ -2,32 +2,12 @@ import argparse
 import logging
 import os
 import shutil
-import sqlite3
-import subprocess
-from io import StringIO
-
-import pandas as pd
 
 # from .model import Model
 from dallama.model import Model
+from dallama.prompt import Prompt
 
 logging.basicConfig(level=logging.INFO)
-
-
-def _read_database():
-    command = ["ollama list"]
-
-    process = subprocess.Popen(
-        command, subprocess.PIPE, stderr=subprocess.PIPE, text=True
-    )
-    stdout, stderr = process.communicate()
-
-    if process.returncode != 0:
-        print(f"Command failed with error: {stderr}")
-    else:
-        output = StringIO(stdout)
-        df = pd.read_csv(output)
-        print(df.head())
 
 
 def ensure_ollama_on_path():
@@ -61,61 +41,54 @@ def ensure_directory_exists():
 def create_model(args) -> None:
     Model(
         base_model=args.base_model,
-        prompt=getattr(args, "prompt", ""),
+        prompt_id=getattr(args, "prompt", ""),
         temperature=getattr(args, "temperature", ""),
     )
 
 
-# def write_to_database(Model):
-#     conn = sqlite3.connect("../database/models.db")
-#     cursor = conn.cursor()
-
-#     cursor.execute(
-#         """
-#      CREATE TABLE IF NOT EXISTS models (
-#      id INTEGER PRIMARY KEY AUTOINCREMENT,
-#      base_model TEXT NOT NULL,
-#      prompt TEXT,
-#      temperature REAL
-# );
-# """
-#     )
-
-#     cursor.execute(
-#         """
-#  INSERT INTO models (base_model, prompt, temperature) VALUES (?, ?, ?);
-#  """,
-#         (my_model.base_model, my_model.prompt, my_model.temperature),
-#     )
-
-
-# def run_benchmarking()
+# Create prompt seperate from model
+# Model should reference prompt
+def create_prompt(args) -> None:
+    prompt = Prompt(title=args.title, content=args.content)
+    prompt.save_prompt()
 
 
 def parse_args():
     parser = argparse.ArgumentParser()
-    subparser = parser.add_subparsers()
 
-    create_parser = subparser.add_parser("create", help="create new model")
-    create_parser.add_argument("-b", "--base-model", required=True)
-    create_parser.add_argument("-p", "--prompt")
-    create_parser.add_argument("-t", "--temperature")
+    # Include dest="command" to know if create_prompt or create_model is used
+    subparser = parser.add_subparsers(dest="command")
+
+    # Create parser for model creation
+    parser_create_model = subparser.add_parser(
+        "create_model", help="create new model"
+    )
+    parser_create_model.add_argument("-b", "--base-model", required=True)
+    parser_create_model.add_argument("-p", "--prompt")
+    parser_create_model.add_argument("-t", "--temperature")
+
+    # Create parser for prompt creation
+    parser_create_prompt = subparser.add_parser(
+        "create_prompt", help="create new prompt"
+    )
+    parser_create_prompt.add_argument("-t", "--title", required=True)
+    parser_create_prompt.add_argument("-c", "--content", required=True)
 
     args = parser.parse_args()
-
     return args
 
 
 def main():
     ensure_ollama_on_path()
 
-    # directory = ensure_directory_exists()
-
     args = parse_args()
 
-    if "base_model" in args:
+    if args.command == "create_prompt":
+        create_prompt(args)
+
+    if args.command == "create_model":
         create_model(args)
 
 
-# if __name__ == "__main__":
-# _read_database()
+if __name__ == "__main__":
+    main()

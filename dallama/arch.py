@@ -2,12 +2,32 @@ import argparse
 import logging
 import os
 import shutil
+import sqlite3
+import subprocess
+from io import StringIO
+
+import pandas as pd
 
 # from .model import Model
 from dallama.model import Model
-from dallama.prompt import Prompt
 
 logging.basicConfig(level=logging.INFO)
+
+
+def _read_database():
+    command = ["ollama list"]
+
+    process = subprocess.Popen(
+        command, subprocess.PIPE, stderr=subprocess.PIPE, text=True
+    )
+    stdout, stderr = process.communicate()
+
+    if process.returncode != 0:
+        print(f"Command failed with error: {stderr}")
+    else:
+        output = StringIO(stdout)
+        df = pd.read_csv(output)
+        print(df.head())
 
 
 def ensure_ollama_on_path():
@@ -46,26 +66,40 @@ def create_model(args) -> None:
     )
 
 
-# Create prompt seperate from model
-# Model should reference prompt
-def create_prompt(args) -> None:
-    Prompt(title=args.title, content=args.content)
+# def write_to_database(Model):
+#     conn = sqlite3.connect("../database/models.db")
+#     cursor = conn.cursor()
+
+#     cursor.execute(
+#         """
+#      CREATE TABLE IF NOT EXISTS models (
+#      id INTEGER PRIMARY KEY AUTOINCREMENT,
+#      base_model TEXT NOT NULL,
+#      prompt TEXT,
+#      temperature REAL
+# );
+# """
+#     )
+
+#     cursor.execute(
+#         """
+#  INSERT INTO models (base_model, prompt, temperature) VALUES (?, ?, ?);
+#  """,
+#         (my_model.base_model, my_model.prompt, my_model.temperature),
+#     )
+
+
+# def run_benchmarking()
 
 
 def parse_args():
     parser = argparse.ArgumentParser()
     subparser = parser.add_subparsers()
 
-    create_model_parser = subparser.add_parser(
-        "create_model", help="create new model"
-    )
-    create_model_parser.add_argument("-b", "--base-model", required=True)
-    create_model_parser.add_argument("-p", "--prompt")
-    create_model_parser.add_argument("-t", "--temperature")
-
-    create_prompt_parser = subparser.add_parser(
-        "create prompt", help="create new prompt"
-    )
+    create_parser = subparser.add_parser("create", help="create new model")
+    create_parser.add_argument("-b", "--base-model", required=True)
+    create_parser.add_argument("-p", "--prompt")
+    create_parser.add_argument("-t", "--temperature")
 
     args = parser.parse_args()
 
@@ -83,5 +117,5 @@ def main():
         create_model(args)
 
 
-if __name__ == "__main__":
-    main()
+# if __name__ == "__main__":
+# _read_database()
