@@ -60,9 +60,7 @@ def parse_args():
     subparser = parser.add_subparsers(dest="command")
 
     # Create parser for model creation
-    parser_create_model = subparser.add_parser(
-        "create_model", help="create new model"
-    )
+    parser_create_model = subparser.add_parser("create_model", help="create new model")
     parser_create_model.add_argument("-b", "--base-model", required=True)
     parser_create_model.add_argument("-p", "--prompt")
     parser_create_model.add_argument("-t", "--temperature")
